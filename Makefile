@@ -3,7 +3,8 @@ NAME = miniRT
 SRCDIR = ./srcs/
 
 SRCNAMES =	main.c \
-			utils.c
+			utils.c \
+			get_next_line.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))
