@@ -6,7 +6,7 @@
 /*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:03:50 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/02/23 21:34:17 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:02:14 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@ typedef struct		s_env
 	t_triangles		*tr;
 }					t_env;
 
-int		ft_strlen(char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-int		is_line(char *save);
-int		get_next_line(int fd, char **line);
+int					ft_strlen(char *str);
+int					ft_strcmp(const char *s1, const char *s2);
+int					is_line(char *save);
+int					get_next_line(int fd, char **line);
+int					ft_atoi(char *str, int *i);
+float				ft_atof(char *str, int *i);
+t_color				get_color(char *str, int *i);
+int					get_all(int fd, t_env *e);
+int					get_res(char *str, t_env *e);
+int					get_ambi_light(char *str, t_env *e);
 
 #endif

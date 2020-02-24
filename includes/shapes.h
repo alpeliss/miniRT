@@ -6,14 +6,14 @@
 /*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 20:43:34 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/02/23 21:34:19 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:13:34 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHAPES_H
 # define SHAPES_H
 
-typedef struct		s_point
+typedef struct			s_point
 {
 	float				x;
 	float				y;
@@ -49,7 +49,7 @@ typedef struct			s_spheres
 	float				diameter;
 	t_color				color;
 	struct s_spheres	*next;
-}						t_lights;
+}						t_spheres;
 
 typedef struct			s_planes
 {

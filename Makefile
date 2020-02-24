@@ -4,7 +4,10 @@ SRCDIR = ./srcs/
 
 SRCNAMES =	main.c \
 			utils.c \
-			get_next_line.c
+			utils2.c \
+			get_next_line.c	\
+			parser.c		\
+			parser2.c		
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))

@@ -6,11 +6,11 @@
 /*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:53:40 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/02/23 21:34:21 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:30:40 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "mini_rt.h"
 
 static char	*get_line(char *save)
 {
@@ -87,7 +87,7 @@ static char	*update_line(char *save, int *lu, int j)
 	return (new);
 }
 
-static int	get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	char		temp[10 + 1];
 	static char	*save;
