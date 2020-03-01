@@ -6,7 +6,7 @@
 /*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 15:10:18 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/02/24 16:13:03 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/02/29 18:41:58 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_atoi(char *str, int *i)
 	tot = 0;
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
-		tot = tot * 10 + str[*i] - '0';
+		tot = tot * 10 + (str[*i] - '0') * m;
 		*i += 1;
 	}
 	return ((int)tot);

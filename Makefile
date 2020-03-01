@@ -2,12 +2,17 @@ NAME = miniRT
 
 SRCDIR = ./srcs/
 
-SRCNAMES =	main.c \
-			utils.c \
-			utils2.c \
+SRCNAMES =	main.c 			\
+			utils.c 		\
+			utils2.c 		\
 			get_next_line.c	\
+			print.c			\
 			parser.c		\
-			parser2.c		
+			get_global.c	\
+			get_cam.c		\
+			get_lights.c	\
+			get_shapes.c	\
+			basic_shapes.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))
