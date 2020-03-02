@@ -18,7 +18,7 @@ static int	check_line(char *str, t_env *e)
 		return (get_res(str, e));
 	else if (str[0] == 'A')
 		return (get_ambi_light(str, e));
-	else if (str[0] == 'c')
+	else if (str[0] == 'c' && str[1] != 'y')
 		return (get_cam(str, e));
 	else if (str[0] == 'l')
 		return (get_lights(str, e));

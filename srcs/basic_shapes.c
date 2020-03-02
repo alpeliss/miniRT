@@ -14,17 +14,13 @@
 
 int		get_sphere(char *str, t_shapes *obj, int *i)
 {
-	write(1, "A\n", 2);
 	if (!(get_point(&obj->pos, str, i, 'p')))
 		return (0);
-	write(1, "B\n", 2);
 	obj->diameter = ft_atof(str, i);
 	if (obj->diameter <= 0)
 		return (0);
-	write(1, "C\n", 2);
 	if (!(get_color(&obj->color, str, i)))
 		return (0);
-	write(1, "D\n", 2);
 	return (1);
 }
 

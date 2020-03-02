@@ -49,5 +49,6 @@ int					get_ambi_light(char *str, t_env *e);
 int					get_cam(char *str, t_env *e);
 int					get_lights(char *str, t_env *e);
 int					get_shapes(char *str, t_env *e, int id);
+void				free_everything(t_env e);
 
 #endif

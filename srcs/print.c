@@ -18,6 +18,12 @@ static void		print_color(t_color color, char *name)
 	printf("r = %d, g = %d, b = %d\n", color.r, color.g, color.b);
 }
 
+static void		print_point(t_point point, char *name)
+{
+	printf("%s: ", name);
+	printf("x = %f, y = %f, z = %f\n", point.x, point.y, point.z);
+}
+
 static void		print_cameras(t_env e)
 {
 	t_cameras	*tmp;
@@ -31,7 +37,7 @@ static void		print_cameras(t_env e)
 		tmp = tmp->next;
 		printf("\n");
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
 static void		print_lights(t_env e)
@@ -47,16 +53,17 @@ static void		print_lights(t_env e)
 		tmp = tmp->next;
 		printf("\n");
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
-static void		print_shapes(t_env e)
+static void		print_shapes(t_env e, char **tab_id)
 {
 	t_shapes	*tmp;
 
 	tmp = e.s;
 	while (tmp)
 	{
+		printf("%s\n", tab_id[tmp->id]);
 		if (tmp->id != 4)
 			print_point(tmp->pos, "Shape_pos");
 		if (tmp->id == 1 || tmp->id == 2 || tmp->id == 3)
@@ -75,15 +82,22 @@ static void		print_shapes(t_env e)
 		tmp = tmp->next;
 		printf("\n");
 	}
-	printf("\n\n");
 }
 
 void			print_data(t_env e)
 {
+	char		*tab_id[5];
+
+	tab_id[0] = "sphere";
+	tab_id[1] = "plane";
+	tab_id[2] = "square";
+	tab_id[3] = "cylinder";
+	tab_id[4] = "triangle";
 	printf("res_x = %d et res_y =  %d\n\n", e.res_x, e.res_y);
 	printf("li_ambi = %f li_r = %d li_g = %d li_b = %d\n\n\n", e.li_ambi,
 			e.li_color.r, e.li_color.g, e.li_color.b);
 	print_cameras(e);
 	print_lights(e);
-	print_shapes(e);
+	print_shapes(e, tab_id);
+	free_everything(e);
 }

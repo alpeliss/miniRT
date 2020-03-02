@@ -12,7 +12,9 @@ SRCNAMES =	main.c 			\
 			get_cam.c		\
 			get_lights.c	\
 			get_shapes.c	\
-			basic_shapes.c
+			basic_shapes.c	\
+			the_big_free.c
+
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))
