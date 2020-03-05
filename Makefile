@@ -3,7 +3,7 @@ NAME = miniRT
 SRCDIR = ./srcs/
 
 SRCNAMES =	main.c 			\
-			utils.c 		\
+			utils.c			\
 			utils2.c 		\
 			get_next_line.c	\
 			print.c			\
@@ -13,8 +13,10 @@ SRCNAMES =	main.c 			\
 			get_lights.c	\
 			get_shapes.c	\
 			basic_shapes.c	\
-			the_big_free.c
-
+			the_big_free.c	\
+			init_window.c	\
+			expose_hook.c	\
+			key_handler.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))
@@ -33,7 +35,7 @@ all: $(NAME)
 		${CC} ${CFLAGS} -I ${INC} -c $<  -o ${<:.c=.o}
 
 $(NAME): $(OBJ)
-		@$(CC) $(CFLAGS) $(SANI) -o $(NAME) $(LIBFT) $(OBJ) $(MLXFLAGS)
+		$(CC) $(CFLAGS) $(SANI) -o $(NAME) $(LIBFT) $(OBJ) $(MLXFLAGS) $(LIB_MLX)
 		@echo "\033[0;32m[OK] \033[0m\033[0;33m Compiling file:\033[0m " $@
 
 clean:

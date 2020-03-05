@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:02:51 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/01 22:02:33 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:26:28 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ static void	init_env(t_env *e)
 	e->s = NULL;
 }
 
+int			ft_click_exit(void)
+{
+	write(1, "Red Cross\n", 10);
+	exit(0);
+}
+
 int			main(int ac, char **av)
 {
 	int		fd;
@@ -50,5 +56,12 @@ int			main(int ac, char **av)
 		return (write(1, "Arguments invalides\n", 20));
 	init_env(&e);
 	get_all(fd, &e);
+	ft_init(&e);
 	print_data(e);
+	mlx_hook(e.mlx->pw, 17, 0, ft_click_exit, &e);
+	mlx_hook(e.mlx->pw, 2, (1L << 0), key_press, &e);
+	mlx_hook(e.mlx->pw, 3, (1L << 1), key_release, &e);
+	mlx_loop_hook(e.mlx->p, expose_hook, &e);
+	mlx_expose_hook(e.mlx->pw, expose_hook, &e);
+	mlx_loop(e.mlx->p);
 }

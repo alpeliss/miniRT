@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_RT.h                                          :+:      :+:    :+:   */
+/*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:03:50 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/01 22:06:04 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:22:54 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,16 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <string.h>
+# include "../miniLibX/mlx.h"
 # include "shapes.h"
+
+typedef	struct		s_mlx
+{
+	void			*p;
+	void			*pw;
+	void			*pi;
+	int				*tab;
+}					t_mlx;
 
 typedef struct		s_env
 {
@@ -31,9 +40,13 @@ typedef struct		s_env
 	t_cameras		*c;
 	t_lights		*l;
 	t_shapes		*s;
+	t_mlx			*mlx;
 }					t_env;
 
 void				print_data(t_env e);
+int					key_press(int k, t_env *e);
+int					key_release(int k, t_env *e);
+int					expose_hook(t_env *e);
 int					int_free(void *obj, int ret_val);
 int					ft_strlen(char *str);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -50,5 +63,6 @@ int					get_cam(char *str, t_env *e);
 int					get_lights(char *str, t_env *e);
 int					get_shapes(char *str, t_env *e, int id);
 void				free_everything(t_env e);
+t_env				*ft_init(t_env *e);
 
 #endif
