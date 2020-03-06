@@ -6,7 +6,7 @@
 /*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:02:51 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/05 18:26:28 by tzerates         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:27:23 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ static void	init_env(t_env *e)
 	e->s = NULL;
 }
 
-int			ft_click_exit(void)
+int			ft_click_exit(t_env *e)
 {
 	write(1, "Red Cross\n", 10);
+	free_everything(*e);
 	exit(0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:59:41 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/01 22:03:19 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:24:52 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,10 @@ void			print_data(t_env e)
 	tab_id[2] = "square";
 	tab_id[3] = "cylinder";
 	tab_id[4] = "triangle";
-	printf("res_x = %d et res_y =  %d\n\n", e.res_x, e.res_y);
+	printf("res_x = %lu et res_y =  %lu\n\n", e.res_x, e.res_y);
 	printf("li_ambi = %f li_r = %d li_g = %d li_b = %d\n\n\n", e.li_ambi,
 			e.li_color.r, e.li_color.g, e.li_color.b);
 	print_cameras(e);
 	print_lights(e);
 	print_shapes(e, tab_id);
-	free_everything(e);
 }

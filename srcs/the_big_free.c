@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   the_big_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 21:02:13 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/02 21:05:59 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:25:31 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,7 @@ void			free_everything(t_env e)
 	free_lights(e.l);
 	free_cams(e.c);
 	free_shapes(e.s);
+	if (e.mlx)
+		free(e.mlx);
+	write(1, "all is free\n", 12);
 }

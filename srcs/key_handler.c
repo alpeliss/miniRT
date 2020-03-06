@@ -6,7 +6,7 @@
 /*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:20:20 by tzerates          #+#    #+#             */
-/*   Updated: 2020/03/05 18:26:34 by tzerates         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:26:52 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	key_press(int k, t_env *e)
 int	key_release(int k, t_env *e)
 {
 	if (k == 53)
+	{
+		free_everything(*e);
 		exit(0);
+	}
 	expose_hook(e);
 	return (0);
 }

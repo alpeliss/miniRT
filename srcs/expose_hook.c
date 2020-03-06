@@ -6,7 +6,7 @@
 /*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:19:38 by tzerates          #+#    #+#             */
-/*   Updated: 2020/03/05 18:26:37 by tzerates         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:18:04 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int		expose_hook(t_env *e)
 {
-	int	i;
-
-	i = 0;
-    (void)e;
-	return (i);
+	mlx_put_image_to_window(e->mlx->p, e->mlx->pw, e->mlx->pi, 0, 0);
+	return (0);
 }

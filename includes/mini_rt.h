@@ -6,7 +6,7 @@
 /*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:03:50 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/05 18:22:54 by tzerates         ###   ########.fr       */
+/*   Updated: 2020/03/06 00:32:02 by tzerates         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <string.h>
 # include "../miniLibX/mlx.h"
 # include "shapes.h"
+# include <math.h>
+
+# define PI 3.14159265359
 
 typedef	struct		s_mlx
 {
@@ -33,8 +36,8 @@ typedef	struct		s_mlx
 
 typedef struct		s_env
 {
-	int				res_x;
-	int				res_y;
+	unsigned long	res_x;
+	unsigned long	res_y;
 	t_color			li_color;
 	float			li_ambi;
 	t_cameras		*c;
@@ -63,6 +66,7 @@ int					get_cam(char *str, t_env *e);
 int					get_lights(char *str, t_env *e);
 int					get_shapes(char *str, t_env *e, int id);
 void				free_everything(t_env e);
-t_env				*ft_init(t_env *e);
+void				ft_init(t_env *e);
+int    				first_inter_s(t_env *e, t_point v0);
 
 #endif
