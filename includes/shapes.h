@@ -27,6 +27,12 @@ typedef struct			s_color
 	int					b;
 }						t_color;
 
+typedef struct			s_vector
+{
+	t_point				origin;
+	t_point				dir;
+}				t_vector;
+
 typedef struct			s_cameras
 {
 	t_point				pos;

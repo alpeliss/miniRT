@@ -12,61 +12,52 @@
 
 #include "mini_rt.h"
 
-/*void	create_line(int x, int y, t_env e)
+void	print_vector(t_vector r)
 {
-	t_point		d0;
-
-	d0.x = e->s_cameras->pos->x + (v0.x) * k;
-	d0.y = e->s_cameras->pos->y + (v0.y) * k;
-	d0.z = e->s_cameras->pos->z + v0.z * k;
-}*/
-
-int	which_obj(t_point v0, t_env *e)
-{
-	t_shapes	*tmp;
-	float		d;
-
-	tmp = e->s;
-	while (tmp)
-	{
-		if (tmp->id == 0)
-			d = first_inter_s(e, v0);
-		/*else if (tmp->id == 1)
-			first_inter_p(e);
-		else if (tmp->id == 2)
-			first_inter_sq(e);
-		else if (tmp->id == 3)
-			first_inter_c(e);
-		else if (tmp->id == 4)
-			first_inter_t(e);*/
-		if (d)
-			return (1);
-		//printf("%p\n", tmp);
-		tmp = tmp->next;
-	}
-	return (0);
+	printf("origin x = %f, y = %f, z= %f\ndir x = %f, y = %f, z = %f\n\n"
+	, r.origin.x, r.origin.y, r.origin.z, r.dir.x, r.dir.y, r.dir.z);
 }
 
-int	init_ray(int x, int y, t_env *e)
+float	inter(t_vector r, t_env *e)
 {
-	t_point		v0;
+	float		res;
+	t_shapes	*tmp;	
 
-	printf("x = %d y = %d\n", x, y);
-	v0.x = (float)x - (float)e->res_x / 2;
-	v0.y = (float)y - (float)e->res_y / 2;
-	v0.z = (e->res_x / 2) / (tan((e->c->fov * PI / 360)));
-	//create_line();
-	return (which_obj(v0, e));
+	tmp = e->s;
+	res = 0;
+	while (tmp)
+	{
+	//	printf("A");
+		if (e->s->id == 0)
+			res += inter_sphere(r, tmp, *e);
+		tmp = tmp->next;
+	}
+//	printf("\n\n");
+//	res = (res * 10000 > 1) ? 1 : res * 10000;
+	return (res);
 }
 
 void	init_tab(t_env *e)
 {
 	unsigned long	i;
+	unsigned long	j;
+	t_vector	r;
 
+	r.dir.z = -(float)e->res_x / (2 * tan((e->c->fov * PI) / 360));
+	r.origin.x = e->c->pos.x;
+	r.origin.y = e->c->pos.y;
+	r.origin.z = e->c->pos.z;
 	i = 0;
-	while (i < e->res_x * e->res_y)
+	while (i < e->res_y)
 	{
-		e->mlx->tab[i] = init_ray(i / e->res_x, i % e->res_y, e) * 255;
+		j = 0;
+		while (j < e->res_x)
+		{
+			r.dir.x = (float)j - (float)e->res_x / 2;
+			r.dir.y = (float)i - (float)e->res_y / 2;	
+			e->mlx->tab[i * e->res_x + j] = (inter(r, e) * 255);
+			j++;
+		}
 		i++;
 	}
 }

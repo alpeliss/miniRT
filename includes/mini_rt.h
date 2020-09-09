@@ -68,5 +68,11 @@ int					get_shapes(char *str, t_env *e, int id);
 void				free_everything(t_env e);
 void				ft_init(t_env *e);
 int    				first_inter_s(t_env *e, t_point v0);
+t_point				basic_op_point(t_point pa, t_point pb, int op);
+t_point				mult_point(t_point p, float m, int op);
+float				scal_prod(t_point p, t_point q);
+float				square_norm(t_point p);
+t_point				normalize(t_point p);
+float				inter_sphere(t_vector r, t_shapes *s, t_env e);
 
 #endif

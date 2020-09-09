@@ -17,7 +17,9 @@ SRCNAMES =	main.c 			\
 			init_window.c	\
 			expose_hook.c	\
 			key_handler.c	\
-			sphere.c
+			sphere.c	\
+			vector.c	\
+			inter.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))
