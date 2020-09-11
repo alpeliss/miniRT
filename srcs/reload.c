@@ -10,6 +10,16 @@ t_point 	basic_op_point(t_point pa, t_point pb, int op)
 	return (pc);
 }
 
+t_point 	mult_vect(t_point pa, t_point pb)
+{
+	t_point	pc;
+
+	pc.x = pa.x * pb.x;
+	pc.y = pa.y * pb.y;
+	pc.z = pa.z * pb.z;
+	return (pc);
+}
+
 t_point		mult_point(t_point p, float m, int op)
 {
 	t_point	r;
@@ -45,6 +55,11 @@ t_point		normalize(t_point p)
 	return (q);
 }
 
+double      conv_color(t_point p)
+{
+    return(p.z + p.y * 256 + p.x * 256 * 256);
+}
+
 /*static void		print_point(t_point point, char *name)
 {
 	printf("%s: ", name);
@@ -52,7 +67,7 @@ t_point		normalize(t_point p)
 }
 */
 
-int         inter(t_vector v, t_shapes sp, t_lights lum)
+double      inter(t_vector v, t_shapes sp, t_lights lum)
 {
     double  a;
     double  b;
@@ -86,17 +101,20 @@ int         inter(t_vector v, t_shapes sp, t_lights lum)
     normale = normalize(basic_op_point(pos, sp.pos, 0));
 
     //calcul intensité lumière
-    intensite = scal_prod(normalize(basic_op_point(lum.pos, pos, 0)), normale) * lum.ratio * 300000;
+    intensite = scal_prod(normalize(basic_op_point(lum.pos, pos, 0)), normale) * lum.ratio * 1000000;
     intensite /= square_norm(basic_op_point(lum.pos, pos, 0));
     //printf("intensité = %f\n", intensite);
     intensite = (intensite > 255) ? 255 : intensite;
-    return (intensite);  
+    intensite = (intensite < 1) ? 0 : intensite;
+    return (intensite);
+    //return (conv_color (mult_point(sp.color, intensite, 1)));
 }
 
 void        complete(int *data)
 {
     int         i;
     int         j;
+    double      intensite;
     t_vector    v;
     t_point     ray;
     t_shapes    sph;
@@ -108,6 +126,10 @@ void        complete(int *data)
     ray.z = -55;
     sph.pos = ray;
     sph.diameter = 20;
+    ray.x = 255;
+    ray.y = 100;
+    ray.z = 50;
+    sph.color = mult_point(ray, 255, 0);
 
     //lumière
     ray.x = 15;
@@ -133,8 +155,16 @@ void        complete(int *data)
             ray.z = -350 / tan((60 * PI) / 360); // -W / (2 *tan(alpha / 2))
             ray = normalize(ray);
             v.dir = ray;
-            data[i*700 + j] = inter(v, sph, lum) * (255 * 256 * 256 + 128 * 256);
-           // data[i*700 + j] = inter(v, sph, lum) * (1 + 256 + 256 * 256);
+            //data[i*700 + j] = inter(v, sph, lum) * (255 * 256 * 256 + 128 * 256);
+            intensite = inter(v, sph, lum);
+            data[(700 - i - 1) * 700 + j] = (int)(intensite * sph.color.z) 
+                                            + (int)(intensite * sph.color.y) * 256 
+                                            + (int)(intensite * sph.color.x) * 256 * 256;
+            //data[(700 - i - 1) * 700 + j] = (int)inter(v, sph, lum) * (sph.color.z + (int)(256 * sph.color.y) + (int)(256 * 256 * sph.color.x));
+            //data[(700 - i - 1) * 700 + j] = (int)inter(v, sph, lum) * (sph.color.z + (256 * sph.color.y) + (256 * 256 * sph.color.x));
+            //data[(700 - i - 1) * 700 + j] = (int)inter(v, sph, lum) * 256;
+            //if (data[(700 - i - 1) * 700 + j] && data[(700 - i - 1) * 700 + j] < 50)
+            //    printf("%d\n", data[(700 - i - 1) * 700 + j]);
             j++;
         }
         i++;

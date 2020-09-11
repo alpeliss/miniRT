@@ -20,13 +20,6 @@ typedef struct			s_point
 	float				z;
 }						t_point;
 
-typedef struct			s_color
-{
-	int					r;
-	int					g;
-	int					b;
-}						t_color;
-
 typedef struct			s_vector
 {
 	t_point				origin;
@@ -45,7 +38,7 @@ typedef struct			s_lights
 {
 	t_point				pos;
 	float				ratio;
-	t_color				color;
+	t_point				color;
 	struct s_lights		*next;
 }						t_lights;
 
@@ -59,7 +52,7 @@ typedef struct			s_shapes
 	t_point				c;
 	float				diameter;
 	float				height;
-	t_color				color;
+	t_point			color;
 	struct s_shapes		*next;
 }						t_shapes;
 
