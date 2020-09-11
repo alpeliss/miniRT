@@ -43,3 +43,11 @@ typedef struct			s_shapes
 	t_point				color;
 	struct s_shapes		*next;
 }						t_shapes;
+
+typedef struct			s_lights
+{
+	t_point				pos;
+	float				ratio;
+//	t_color				color;
+	struct s_lights		*next;
+}						t_lights;

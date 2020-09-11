@@ -45,13 +45,14 @@ t_point		normalize(t_point p)
 	return (q);
 }
 
-static void		print_point(t_point point, char *name)
+/*static void		print_point(t_point point, char *name)
 {
 	printf("%s: ", name);
 	printf("x = %f, y = %f, z = %f\n", point.x, point.y, point.z);
 }
+*/
 
-int         inter(t_vector v, t_shapes sp)
+int         inter(t_vector v, t_shapes sp, t_lights lum)
 {
     double  a;
     double  b;
@@ -59,7 +60,11 @@ int         inter(t_vector v, t_shapes sp)
     double  t1;
     double  t2;
     double  delta;
+    double  intensite;
+    t_point pos;
+    t_point normale;
 
+    //resolution interection sphere rayon
     a = 1;
     b = 2 * scal_prod(v.dir, basic_op_point(v.or, sp.pos, 0));
     c = square_norm(basic_op_point(v.or, sp.pos, 0)) - sp.diameter * sp.diameter;
@@ -68,9 +73,24 @@ int         inter(t_vector v, t_shapes sp)
         return (0);
     t1 = (-b - sqrt(delta)) / (2 * a);
     t2 = (-b + sqrt(delta)) / (2 * a);
-    if (t2 > 0)
-        return (1);
-    return (0);  
+
+    //la plus proche inter
+    t1 = (t1 > 0) ? t1 : t2;
+    if (t2 < 0)
+        return (0);
+
+    // coordonnée de l'inter 
+    pos = basic_op_point(v.or, mult_point(v.dir, t1, 1), 1);
+    
+    // normal à l'inter
+    normale = normalize(basic_op_point(pos, sp.pos, 0));
+
+    //calcul intensité lumière
+    intensite = scal_prod(normalize(basic_op_point(lum.pos, pos, 0)), normale) * lum.ratio * 300000;
+    intensite /= square_norm(basic_op_point(lum.pos, pos, 0));
+    //printf("intensité = %f\n", intensite);
+    intensite = (intensite > 255) ? 255 : intensite;
+    return (intensite);  
 }
 
 void        complete(int *data)
@@ -80,14 +100,28 @@ void        complete(int *data)
     t_vector    v;
     t_point     ray;
     t_shapes    sph;
+    t_lights    lum;
 
+    //sphere
     ray.x = 0;
     ray.y = 0;
     ray.z = -55;
     sph.pos = ray;
-    sph.diameter = 10;  
+    sph.diameter = 20;
+
+    //lumière
+    ray.x = 15;
+    ray.y = 60;
+    ray.z = -40; 
+    lum.pos = ray;
+    lum.ratio = 1;
+
+    //cam
+    ray.x = 0;
+    ray.y = 0;
     ray.z = 0;
     v.or = ray;
+
     i = 0;
     while (i < 700)
     {
@@ -97,14 +131,10 @@ void        complete(int *data)
             ray.x = j - 700 / 2; //W / 2
             ray.y = i - 700 / 2; //H / 2  
             ray.z = -350 / tan((60 * PI) / 360); // -W / (2 *tan(alpha / 2))
-
-            if (i == 400 && i == j)
-                print_point(ray, "direction");
             ray = normalize(ray);
             v.dir = ray;
-            data[i*700 + j] = inter(v, sph) * 255;
-            if (i == 400 && i == j)
-                print_point(v.dir, "direction");
+            data[i*700 + j] = inter(v, sph, lum) * (255 * 256 * 256 + 128 * 256);
+           // data[i*700 + j] = inter(v, sph, lum) * (1 + 256 + 256 * 256);
             j++;
         }
         i++;
