@@ -36,9 +36,9 @@ typedef	struct		s_mlx
 
 typedef struct		s_env
 {
-	unsigned long	res_x;
-	unsigned long	res_y;
-	t_color			li_color;
+	long			res_x;
+	long			res_y;
+	t_point			li_color;
 	float			li_ambi;
 	t_cameras		*c;
 	t_lights		*l;
@@ -57,7 +57,7 @@ int					is_line(char *save);
 int					get_next_line(int fd, char **line);
 int					ft_atoi(char *str, int *i);
 float				ft_atof(char *str, int *i);
-int					get_color(t_color *color, char *str, int *i);
+int					get_color(t_point *color, char *str, int *i);
 int					get_point(t_point *point, char *str, int *i, char id);
 int					get_all(int fd, t_env *e);
 int					get_res(char *str, t_env *e);

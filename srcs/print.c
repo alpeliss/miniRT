@@ -12,10 +12,10 @@
 
 #include "mini_rt.h"
 
-static void		print_color(t_color color, char *name)
+static void		print_color(t_point color, char *name)
 {
 	printf("%s: ", name);
-	printf("r = %d, g = %d, b = %d\n", color.r, color.g, color.b);
+	printf("r = %f, g = %f, b = %f\n", color.x, color.y, color.z);
 }
 
 static void		print_point(t_point point, char *name)
@@ -94,8 +94,8 @@ void			print_data(t_env e)
 	tab_id[3] = "cylinder";
 	tab_id[4] = "triangle";
 	printf("res_x = %lu et res_y =  %lu\n\n", e.res_x, e.res_y);
-	printf("li_ambi = %f li_r = %d li_g = %d li_b = %d\n\n\n", e.li_ambi,
-			e.li_color.r, e.li_color.g, e.li_color.b);
+	printf("li_ambi = %f li_r = %f li_g = %f li_b = %f\n\n\n", e.li_ambi,
+			e.li_color.x, e.li_color.y, e.li_color.z);
 	print_cameras(e);
 	print_lights(e);
 	print_shapes(e, tab_id);

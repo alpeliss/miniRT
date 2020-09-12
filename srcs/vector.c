@@ -1,5 +1,4 @@
 #include "mini_rt.h"
-#include "reload.h"
 
 t_point 	basic_op_point(t_point pa, t_point pb, int op)
 {

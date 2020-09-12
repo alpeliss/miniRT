@@ -18,18 +18,18 @@ int		int_free(void *obj, int ret_val)
 	return (ret_val);
 }
 
-int		get_color(t_color *color, char *str, int *i)
+int		get_color(t_point *color, char *str, int *i)
 {
-	color->r = ft_atoi(str, i);
-	if (color->r > 255 || str[*i] != ',')
+	color->x = ft_atoi(str, i);
+	if (color->x > 255 || str[*i] != ',')
 		return (0);
 	*i += 1;
-	color->g = ft_atoi(str, i);
-	if (color->g > 255 || str[*i] != ',')
+	color->y = ft_atoi(str, i);
+	if (color->y > 255 || str[*i] != ',')
 		return (0);
 	*i += 1;
-	color->b = ft_atoi(str, i);
-	if (color->b > 255)
+	color->z = ft_atoi(str, i);
+	if (color->z > 255)
 		return (0);
 	return (1);
 }

@@ -1,5 +1,11 @@
 #include "reload.h"
-
+/*
+static void		print_point(t_point point, char *name)
+{
+	printf("%s: ", name);
+	printf("x = %f, y = %f, z = %f\n", point.x, point.y, point.z);
+}
+*/
 t_point 	basic_op_point(t_point pa, t_point pb, int op)
 {
 	t_point	pc;
@@ -59,13 +65,6 @@ double      conv_color(t_point p)
 {
     return(p.z + p.y * 256 + p.x * 256 * 256);
 }
-
-/*static void		print_point(t_point point, char *name)
-{
-	printf("%s: ", name);
-	printf("x = %f, y = %f, z = %f\n", point.x, point.y, point.z);
-}
-*/
 
 double      inter(t_vector v, t_shapes sp, t_lights lum)
 {
@@ -157,6 +156,8 @@ void        complete(int *data)
             v.dir = ray;
             //data[i*700 + j] = inter(v, sph, lum) * (255 * 256 * 256 + 128 * 256);
             intensite = inter(v, sph, lum);
+            if (intensite)
+                printf("intensite = %f", intensite);
             data[(700 - i - 1) * 700 + j] = (int)(intensite * sph.color.z) 
                                             + (int)(intensite * sph.color.y) * 256 
                                             + (int)(intensite * sph.color.x) * 256 * 256;
