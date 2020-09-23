@@ -47,6 +47,7 @@ int					get_lights(char *str, t_env *e)
 	if (!(get_color(&light->color, str, &i)))
 		return (0);
 	light->next = NULL;
+	light->color = mult_point(light->color, 255, 0);
 	add_back(&e->l, light);
 	return (1);
 }

@@ -12,12 +12,6 @@
 
 #include "mini_rt.h"
 
-static void		print_color(t_point color, char *name)
-{
-	printf("%s: ", name);
-	printf("r = %f, g = %f, b = %f\n", color.x, color.y, color.z);
-}
-
 static void		print_point(t_point point, char *name)
 {
 	printf("%s: ", name);
@@ -49,7 +43,7 @@ static void		print_lights(t_env e)
 	{
 		print_point(tmp->pos, "Light_pos");
 		printf("Light_ratio = %f\n", tmp->ratio);
-		print_color(tmp->color, "Light_color");
+		print_point(tmp->color, "Light_color");
 		tmp = tmp->next;
 		printf("\n");
 	}
@@ -78,7 +72,7 @@ static void		print_shapes(t_env e, char **tab_id)
 			printf("Diameter = %f\n", tmp->diameter);
 		if (tmp->id == 2 || tmp->id == 3)
 			printf("Height = %f\n", tmp->height);
-		print_color(tmp->color, "Shape_color");
+		print_point(tmp->color, "Shape_color");
 		tmp = tmp->next;
 		printf("\n");
 	}

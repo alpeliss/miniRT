@@ -30,13 +30,11 @@ int		first_inter_s(t_env *e, t_point v0)
 		return (0);
 	if (delta >= 0)
 	{
-	//	printf("%f\n", delta);
 		res = ((-sol.y - sqrtf(delta)) / (2 * sol.x));
 		res = (res < (-sol.y + sqrtf(delta)) / (2 * sol.x))
 			? res : (-sol.y + sqrtf(delta)) / (2 * sol.x);
 		d = res * sqrtf(sol.x);
 		return (1);
 	}
-	//vector_to_light(res,);
 	return (0);
 }

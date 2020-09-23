@@ -24,7 +24,7 @@ typedef struct			s_vector
 {
 	t_point				origin;
 	t_point				dir;
-}				t_vector;
+}						t_vector;
 
 typedef struct			s_cameras
 {
@@ -52,7 +52,7 @@ typedef struct			s_shapes
 	t_point				c;
 	float				diameter;
 	float				height;
-	t_point			color;
+	t_point				color;
 	struct s_shapes		*next;
 }						t_shapes;
 

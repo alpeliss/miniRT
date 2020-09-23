@@ -12,33 +12,7 @@
 
 #include "mini_rt.h"
 
-void		print_vector(t_vector r)
-{
-	printf("origin x = %f, y = %f, z= %f\ndir x = %f, y = %f, z = %f\n\n"
-	, r.origin.x, r.origin.y, r.origin.z, r.dir.x, r.dir.y, r.dir.z);
-}
-
-double		calc_color(double intens, t_env *e, t_shapes *s)
-{
-	t_point	best_intens;
-	double	color;
-
-	best_intens.x = (intens != -1) ? intens + e->li_ambi * e->li_color.x : 0;
-	best_intens.x = (best_intens.x > 255) ? 255 : best_intens.x;
-	best_intens.x = (best_intens.x < 0) ? 0 : best_intens.x;
-	best_intens.y = (intens != -1) ? intens + e->li_ambi * e->li_color.y : 0;
-	best_intens.y = (best_intens.y > 255) ? 255 : best_intens.y;
-	best_intens.y = (best_intens.y < 0) ? 0 : best_intens.y;
-	best_intens.z = (intens != -1) ? intens + e->li_ambi * e->li_color.z : 0;
-	best_intens.z = (best_intens.z > 255) ? 255 : best_intens.z;
-	best_intens.z = (best_intens.z < 0) ? 0 : best_intens.z;
-	color = (int)(best_intens.z * s->color.z);
-	color += (int)(best_intens.y * s->color.y) * 256;
-	color += (int)(best_intens.x * s->color.x) * 256 * 256;
-	return (color);
-}
-
-double	inter_sphere(t_vector v, t_shapes *s)
+double		inter_sphere(t_vector v, t_shapes *s)
 {
 	double	b;
 	double	c;
@@ -46,8 +20,8 @@ double	inter_sphere(t_vector v, t_shapes *s)
 	double	t2;
 	double	delta;
 
-	b = 2 * scal_prod(v.dir, basic_op_point(v.origin, s->pos, 0));
-	c = square_norm(basic_op_point(v.origin, s->pos, 0))
+	b = 2 * scal_prod(v.dir, add_point(v.origin, s->pos, 0));
+	c = square_norm(add_point(v.origin, s->pos, 0))
 		- s->diameter * s->diameter;
 	delta = b * b - 4 * c;
 	if (delta < 0)
@@ -64,33 +38,26 @@ double		inter(t_vector v, t_env *e)
 {
 	t_shapes	*s;
 	t_shapes	*c;
-	double		t;
-	double		intensite;
-	t_point		pos;
-	t_point		normale;
+	double		min_dist;
+	double		dist;
 
 	s = e->s;
-	t = -1;
+	min_dist = -1;
 	while (s)
 	{
+		dist = -1;
 		if (s->id == 0)
+			dist = inter_sphere(v, s);
+		if ((dist < min_dist && dist != -1) || min_dist == -1)
 		{
-			intensite = inter_sphere(v, s);
-			if ((intensite < t && intensite != -1) || t == -1)
-			{
-				t = intensite;
-				c = s;
-			}
+			min_dist = dist;
+			c = s;
 		}
 		s = s->next;
 	}
-	if (t == -1)
+	if (min_dist == -1)
 		return (0);
-	pos = basic_op_point(v.origin, mult_point(v.dir, t, 1), 1);
-	normale = normalize(basic_op_point(pos, e->s->pos, 0));
-	intensite = scal_prod(normalize(basic_op_point(e->l->pos, pos, 0)), normale) * e->l->ratio * 1000000;
-	intensite /= square_norm(basic_op_point(e->l->pos, pos, 0));
-	return (calc_color(intensite, e, c));
+	return (calc_color(e, c, min_dist, v));
 }
 
 int			mini_check(t_env *e)

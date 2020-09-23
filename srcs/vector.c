@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/23 09:04:11 by alpeliss          #+#    #+#             */
+/*   Updated: 2020/09/23 09:04:11 by alpeliss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_rt.h"
 
-t_point 	basic_op_point(t_point pa, t_point pb, int op)
+t_point		add_point(t_point pa, t_point pb, int op)
 {
 	t_point	pc;
 
