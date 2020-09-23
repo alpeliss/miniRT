@@ -1,6 +1,6 @@
 #include "mini_rt.h"
 
-float	inter_sphere(t_vector r, t_shapes *s, t_env e)
+float	inter_spheres(t_vector r, t_shapes *s, t_env e)
 {
 	//	double	a;
 	double	b;

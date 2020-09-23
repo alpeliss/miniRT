@@ -73,6 +73,6 @@ t_point				mult_point(t_point p, float m, int op);
 float				scal_prod(t_point p, t_point q);
 float				square_norm(t_point p);
 t_point				normalize(t_point p);
-float				inter_sphere(t_vector r, t_shapes *s, t_env e);
+//float				inter_sphere(t_vector r, t_shapes *s, t_env e);
 
 #endif

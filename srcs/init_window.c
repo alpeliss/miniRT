@@ -44,9 +44,10 @@ void		print_vector(t_vector r)
 }
 */
 
-t_point		calc_intens(double intens, t_env *e)
+double		calc_color(double intens, t_env *e, t_shapes *s)
 {
 	t_point	best_intens;
+	double	color;
 
 	best_intens.x = (intens != -1) ? intens + e->li_ambi * e->li_color.x : 0;
 	best_intens.x = (best_intens.x > 255) ? 255 : best_intens.x;
@@ -56,39 +57,80 @@ t_point		calc_intens(double intens, t_env *e)
 	best_intens.y = (best_intens.y < 0) ? 0 : best_intens.y;
 	best_intens.z = (intens != -1) ? intens + e->li_ambi * e->li_color.z : 0;
 	best_intens.z = (best_intens.z > 255) ? 255 : best_intens.z;
-	best_intens.z = (best_intens.z < 0) ? 0 : best_intens.z;
-	return (best_intens);
+	best_intens.z = (best_intens.z < 0) ? 0 : best_intens.z;		
+    color = (int)(best_intens.z * s->color.z);
+    color += (int)(best_intens.y * s->color.y) * 256;
+    color += (int)(best_intens.x * s->color.x) * 256 * 256;
+	return (color);
+}
+
+double	inter_sphere(t_vector v, t_shapes *s)
+{
+
+    double  	b;
+    double  	c;
+    double  	t1;
+    double  	t2;
+    double  	delta;
+
+    //resolution interection sphere rayon
+    b = 2 * scal_prod(v.dir, basic_op_point(v.origin, s->pos, 0));
+    c = square_norm(basic_op_point(v.origin, s->pos, 0)) - s->diameter * s->diameter;
+    delta = b * b - 4 * c;
+    if (delta < 0)
+        return -1;
+    t1 = (-b - sqrt(delta)) / 2;
+    t2 = (-b + sqrt(delta)) / 2;
+
+    //la plus proche inter
+    t1 = (t1 > 0) ? t1 : t2;
+    if (t2 < 0) 
+        return -1;
+	//if (*t != -1)
+	//	printf("t1 = %f && *t = %f\n", t1, *t);
+	//if  (t1 > *t && *t != -1)
+	//	return -1;
+	return (t1);
 }
 
 double     inter(t_vector v, t_env *e)
 {
-    double  a;
-    double  b;
-    double  c;
-    double  t1;
-    double  t2;
-    double  delta;
-    double  intensite;
-    t_point pos;
-    t_point normale;
+	t_shapes	*s;
+	t_shapes	*c;
+    double  	t;
+    double  	intensite;
+    t_point 	pos;
+    t_point 	normale;
+	int			test;
 
-    //resolution interection sphere rayon
-    a = 1;
-    b = 2 * scal_prod(v.dir, basic_op_point(v.origin, e->s->pos, 0));
-    c = square_norm(basic_op_point(v.origin, e->s->pos, 0)) - e->s->diameter * e->s->diameter;
-    delta = b * b - 4 * a * c;
-    if (delta < 0)
-        return (-1);
-    t1 = (-b - sqrt(delta)) / (2 * a);
-    t2 = (-b + sqrt(delta)) / (2 * a);
-
-    //la plus proche inter
-    t1 = (t1 > 0) ? t1 : t2;
-    if (t2 < 0)
-        return (-1);
+	s = e->s;
+	t = -1;
+	test = 0;
+	while (s)
+	{
+		if (s->id == 0)
+		{
+			intensite = inter_sphere(v, s);
+			if ((intensite < t && intensite != -1) || t == -1)
+			{
+				t = intensite;
+				c = s;
+			}
+		}
+		if (s->diameter == 20 && t != -1)
+		{
+			test = 1;
+			printf("t = %f", t);
+		}
+		s = s->next;
+	}
+	if (test)
+		printf("t = %f\n", t);
+	if (t == -1)
+		return (0);
 
     // coordonnée de l'inter 
-    pos = basic_op_point(v.origin, mult_point(v.dir, t1, 1), 1);
+    pos = basic_op_point(v.origin, mult_point(v.dir, t, 1), 1);
     
     // normal à l'inter
     normale = normalize(basic_op_point(pos, e->s->pos, 0));
@@ -96,7 +138,7 @@ double     inter(t_vector v, t_env *e)
     //calcul intensité lumière
     intensite = scal_prod(normalize(basic_op_point(e->l->pos, pos, 0)), normale) * e->l->ratio * 1000000;
     intensite /= square_norm(basic_op_point(e->l->pos, pos, 0));
-    return (intensite);
+	return (calc_color(intensite, e, c));
 }
 
 /*void	init_tab(t_env *e)
@@ -133,9 +175,8 @@ int			mini_check(t_env *e)
 
 void		init_tab(t_env *e)
 {
-    int	i;
-    int	j;
-    t_point      	intensite;
+    int		i;
+    int		j;
     t_vector    	v;
 
 	v.origin = e->c->pos;
@@ -149,10 +190,10 @@ void		init_tab(t_env *e)
            	v.dir.y = (long)i - e->res_y / 2; //H / 2   
             v.dir.z = -((float)e->res_x / 2) / tan((e->c->fov * PI) / 360); // -W / (2 *tan(alpha / 2))
 			v.dir = normalize(v.dir);	
-			intensite = calc_intens(inter(v, e), e);
-            e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = (int)(intensite.z * e->s->color.z);
-            e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] += (int)(intensite.y * e->s->color.y) * 256;
-            e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] += (int)(intensite.x * e->s->color.x) * 256 * 256;
+			e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = inter(v, e);
+            //e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = (int)(intensite.z * e->s->color.z);
+            //e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] += (int)(intensite.y * e->s->color.y) * 256;
+            //e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] += (int)(intensite.x * e->s->color.x) * 256 * 256;
             j++;
         }
         i++;
