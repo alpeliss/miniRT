@@ -34,6 +34,8 @@ static void	init_env(t_env *e)
 	e->res_x = 0;
 	e->res_y = 0;
 	e->li_ambi = 0;
+	e->l_coef = 1000000;
+	e->init = 0;
 	e->c = NULL;
 	e->l = NULL;
 	e->s = NULL;

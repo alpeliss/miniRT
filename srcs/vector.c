@@ -39,17 +39,17 @@ float		scal_prod(t_point p, t_point q)
 	return (p.x * q.x + p.y * q.y + p.z * q.z);
 }
 
-float		square_norm(t_point p)
+float		sq_norm(t_point p)
 {
 	return (p.x * p.x + p.y * p.y + p.z * p.z);
 }
 
-t_point		normalize(t_point p)
+t_point		norm(t_point p)
 {
 	t_point	q;
 	float	norm;
 
-	if (!(norm = sqrtf(square_norm(p))))
+	if (!(norm = sqrtf(sq_norm(p))))
 		return (p);
 	q.x = p.x / norm;
 	q.y = p.y / norm;

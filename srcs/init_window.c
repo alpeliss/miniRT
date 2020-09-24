@@ -21,7 +21,7 @@ double		inter_sphere(t_vector v, t_shapes *s)
 	double	delta;
 
 	b = 2 * scal_prod(v.dir, add_point(v.origin, s->pos, 0));
-	c = square_norm(add_point(v.origin, s->pos, 0))
+	c = sq_norm(add_point(v.origin, s->pos, 0))
 		- s->diameter * s->diameter;
 	delta = b * b - 4 * c;
 	if (delta < 0)
@@ -83,7 +83,7 @@ void		init_tab(t_env *e)
 			v.dir.x = (long)j - e->res_x / 2;
 			v.dir.y = (long)i - e->res_y / 2;
 			v.dir.z = -((float)e->res_x / 2) / tan((e->c->fov * PI) / 360);
-			v.dir = normalize(v.dir);
+			v.dir = norm(v.dir);
 			e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = inter(v, e);
 			j++;
 		}
@@ -97,17 +97,21 @@ void		ft_init(t_env *e)
 	int		i;
 
 	i = 0;
-	if (!(m = (t_mlx*)malloc(sizeof(t_mlx))))
-		return ;
-	m->p = mlx_init();
-	m->pw = mlx_new_window(m->p, e->res_x, e->res_y, "rendu");
-	m->pi = mlx_new_image(m->p, e->res_x, e->res_y);
-	m->tab = (int*)mlx_get_data_addr(m->pi, &i, &i, &i);
-	e->mlx = m;
-	if (!(mini_check(e)))
+	if (!e->init)
 	{
-		free_everything(*e);
-		exit(1);
+		if (!(m = (t_mlx*)malloc(sizeof(t_mlx))))
+			return ;
+		m->p = mlx_init();
+		m->pw = mlx_new_window(m->p, e->res_x, e->res_y, "rendu");
+		m->pi = mlx_new_image(m->p, e->res_x, e->res_y);
+		m->tab = (int*)mlx_get_data_addr(m->pi, &i, &i, &i);
+		e->mlx = m;
+		if (!(mini_check(e)))
+		{
+			free_everything(*e);
+			exit(1);
+		}
+		e->init = 1;
 	}
 	init_tab(e);
 }

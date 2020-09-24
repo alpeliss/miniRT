@@ -44,6 +44,8 @@ typedef struct		s_env
 	t_lights		*l;
 	t_shapes		*s;
 	t_mlx			*mlx;
+	unsigned long	l_coef;
+	int				init;
 }					t_env;
 
 void				print_data(t_env e);
@@ -70,8 +72,8 @@ void				ft_init(t_env *e);
 t_point				add_point(t_point pa, t_point pb, int op);
 t_point				mult_point(t_point p, float m, int op);
 float				scal_prod(t_point p, t_point q);
-float				square_norm(t_point p);
-t_point				normalize(t_point p);
+float				sq_norm(t_point p);
+t_point				norm(t_point p);
 double          	calc_color(t_env *e, t_shapes *s, double dist, t_vector v);
 
 #endif
