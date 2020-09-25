@@ -42,7 +42,7 @@ static int		shadow(t_point pos, t_lights *l, t_env *e, t_point n)
 	cl = inter(to_light, e);
 	if (cl.dist != -1 && cl.dist * cl.dist < sq_norm(add_point(l->pos, pos, 0)))
 		return (0);
-	return(1); 
+	return (1);
 }
 
 double			calc_color(t_env *e, t_closest c, t_vector v)
@@ -53,17 +53,18 @@ double			calc_color(t_env *e, t_closest c, t_vector v)
 	t_lights	*l;
 	double		temp;
 
+	if (c.dist == -1)
+		return (0);
 	l = e->l;
 	light.x = 0;
 	light.y = 0;
 	light.z = 0;
 	pos = add_point(v.origin, mult_point(v.dir, c.dist, 1), 1);
-	normale = norm(add_point(pos, e->s->pos, 0));
-	temp = shadow(pos, l, e, normale);
+	normale = norm(add_point(pos, c.s.pos, 0));
 	while (l)
 	{
-		temp = scal_prod(norm(add_point(l->pos, pos, 0)), normale) * e->l_coef
-			* l->ratio / sq_norm(add_point(l->pos, pos, 0));
+		temp = scal_prod(norm(add_point(l->pos, pos, 0)), normale) * e->l_coef *
+	l->ratio * shadow(pos, l, e, normale) / sq_norm(add_point(l->pos, pos, 0));
 		temp = (temp < 0) ? 0 : temp;
 		light.x += temp * l->color.x;
 		light.y += temp * l->color.y;

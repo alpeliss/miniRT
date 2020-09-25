@@ -29,30 +29,28 @@ double		inter_sphere(t_vector v, t_shapes *s)
 	t1 = (-b - sqrt(delta)) / 2;
 	t2 = (-b + sqrt(delta)) / 2;
 	t1 = (t1 > 0) ? t1 : t2;
-	if (t2 < 0)
-		return (-1);
 	return (t1);
 }
 
 t_closest	inter(t_vector v, t_env *e)
 {
 	t_shapes	*s;
-    t_closest   c;
-	double      dist;
+	t_closest	c;
+	double		dist;
 
 	s = e->s;
 	c.dist = -1;
+	dist = 0;
 	while (s)
 	{
-		dist = -1;
 		if (s->id == 0)
 			dist = inter_sphere(v, s);
-		if ((dist < c.dist && dist != -1) || c.dist == -1)
+		if (dist > 0 && (c.dist == -1 || dist < c.dist))
 		{
 			c.dist = dist;
 			c.s = *s;
 		}
 		s = s->next;
 	}
-    return (c);
+	return (c);
 }

@@ -16,9 +16,12 @@ int	key_press(int k, t_env *e)
 {
 	if (k == 15)
 		e->l_coef = 1000000;
+	if (k == 67)
+		e->l_coef *= 10;
+	if (k == 75 && e->l_coef / 10)
+		e->l_coef /= 10;
 	if (k == 69)
-		e->l_coef *= 1000;
-		//e->l_coef *= 1.5;
+		e->l_coef *= 1.5;
 	if (k == 78 && e->l_coef / 1.5)
 		e->l_coef /= 1.5;
 	expose_hook(e);
