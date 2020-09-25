@@ -34,6 +34,13 @@ typedef	struct		s_mlx
 	int				*tab;
 }					t_mlx;
 
+typedef struct		s_closest
+{
+	t_shapes		s;
+	double			dist;
+}					t_closest;
+
+
 typedef struct		s_env
 {
 	long			res_x;
@@ -74,6 +81,7 @@ t_point				mult_point(t_point p, float m, int op);
 float				scal_prod(t_point p, t_point q);
 float				sq_norm(t_point p);
 t_point				norm(t_point p);
-double          	calc_color(t_env *e, t_shapes *s, double dist, t_vector v);
+double          	calc_color(t_env *e, t_closest c, t_vector v);
+t_closest			inter(t_vector v, t_env *e);
 
 #endif

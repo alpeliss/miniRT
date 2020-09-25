@@ -12,54 +12,6 @@
 
 #include "mini_rt.h"
 
-double		inter_sphere(t_vector v, t_shapes *s)
-{
-	double	b;
-	double	c;
-	double	t1;
-	double	t2;
-	double	delta;
-
-	b = 2 * scal_prod(v.dir, add_point(v.origin, s->pos, 0));
-	c = sq_norm(add_point(v.origin, s->pos, 0))
-		- s->diameter * s->diameter;
-	delta = b * b - 4 * c;
-	if (delta < 0)
-		return (-1);
-	t1 = (-b - sqrt(delta)) / 2;
-	t2 = (-b + sqrt(delta)) / 2;
-	t1 = (t1 > 0) ? t1 : t2;
-	if (t2 < 0)
-		return (-1);
-	return (t1);
-}
-
-double		inter(t_vector v, t_env *e)
-{
-	t_shapes	*s;
-	t_shapes	*c;
-	double		min_dist;
-	double		dist;
-
-	s = e->s;
-	min_dist = -1;
-	while (s)
-	{
-		dist = -1;
-		if (s->id == 0)
-			dist = inter_sphere(v, s);
-		if ((dist < min_dist && dist != -1) || min_dist == -1)
-		{
-			min_dist = dist;
-			c = s;
-		}
-		s = s->next;
-	}
-	if (min_dist == -1)
-		return (0);
-	return (calc_color(e, c, min_dist, v));
-}
-
 int			mini_check(t_env *e)
 {
 	if (!e->c)
@@ -84,7 +36,7 @@ void		init_tab(t_env *e)
 			v.dir.y = (long)i - e->res_y / 2;
 			v.dir.z = -((float)e->res_x / 2) / tan((e->c->fov * PI) / 360);
 			v.dir = norm(v.dir);
-			e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = inter(v, e);
+			e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = calc_color(e, inter(v, e), v);
 			j++;
 		}
 		i++;

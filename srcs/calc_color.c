@@ -32,7 +32,20 @@ static double	calc_color_a(t_point intens, t_env *e, t_shapes *s)
 	return (color);
 }
 
-double			calc_color(t_env *e, t_shapes *s, double dist, t_vector v)
+static int		shadow(t_point pos, t_lights *l, t_env *e, t_point n)
+{
+	t_vector	to_light;
+	t_closest	cl;
+
+	to_light.origin = add_point(pos, mult_point(n, 1.01, 1), 1);
+	to_light.dir = norm(add_point(l->pos, pos, 0));
+	cl = inter(to_light, e);
+	if (cl.dist != -1 && cl.dist * cl.dist < sq_norm(add_point(l->pos, pos, 0)))
+		return (0);
+	return(1); 
+}
+
+double			calc_color(t_env *e, t_closest c, t_vector v)
 {
 	t_point		pos;
 	t_point		normale;
@@ -44,8 +57,9 @@ double			calc_color(t_env *e, t_shapes *s, double dist, t_vector v)
 	light.x = 0;
 	light.y = 0;
 	light.z = 0;
-	pos = add_point(v.origin, mult_point(v.dir, dist, 1), 1);
+	pos = add_point(v.origin, mult_point(v.dir, c.dist, 1), 1);
 	normale = norm(add_point(pos, e->s->pos, 0));
+	temp = shadow(pos, l, e, normale);
 	while (l)
 	{
 		temp = scal_prod(norm(add_point(l->pos, pos, 0)), normale) * e->l_coef
@@ -56,5 +70,5 @@ double			calc_color(t_env *e, t_shapes *s, double dist, t_vector v)
 		light.z += temp * l->color.z;
 		l = l->next;
 	}
-	return (calc_color_a(light, e, s));
+	return (calc_color_a(light, e, &c.s));
 }
