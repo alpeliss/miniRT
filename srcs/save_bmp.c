@@ -12,7 +12,7 @@
 
 #include "mini_rt.h"
 
-static int	cub_write_header(int fd, t_env *e)
+static int	write_header(int fd, t_env *e)
 {
 	char	c;
 	int		d;
@@ -35,7 +35,7 @@ static int	cub_write_header(int fd, t_env *e)
 	return (1);
 }
 
-static int	cub_write_dib(int fd, t_env *e)
+static int	write_dib(int fd, t_env *e)
 {
 	int				d;
 	unsigned short	s;
@@ -58,7 +58,7 @@ static int	cub_write_dib(int fd, t_env *e)
 	return (1);
 }
 
-static int	cub_write_data(int fd, t_env *e)
+static int	write_data(int fd, t_env *e)
 {
 	int x;
 	int y;
@@ -87,8 +87,8 @@ int			save_bmp(t_env *e)
 
 	if ((fd = open("save.bmp", O_WRONLY | O_CREAT, 0644)) == -1)
 		return (0);
-	if ((cub_write_header(fd, e)) != 1 || (cub_write_dib(fd, e))
-			!= 1 || (cub_write_data(fd, e)) != 1)
+	if ((write_header(fd, e)) != 1 || (write_dib(fd, e))
+			!= 1 || (write_data(fd, e)) != 1)
 	{
 		close(fd);
 		return (0);
