@@ -21,7 +21,8 @@ SRCNAMES =	main.c 			\
 			vector.c		\
 			calc_color.c	\
 			inter.c			\
-			filter.c
+			filter.c		\
+			save_bmp.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))

@@ -61,7 +61,8 @@ int			main(int ac, char **av)
 	init_env(&e);
 	get_all(fd, &e);
 	ft_init(&e);
-	//print_data(e);
+	if (save_bmp(&e))
+		return (1);
 	mlx_hook(e.mlx->pw, 17, 0, ft_click_exit, &e);
 	mlx_hook(e.mlx->pw, 2, (1L << 0), key_press, &e);
 	mlx_hook(e.mlx->pw, 3, (1L << 1), key_release, &e);
