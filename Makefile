@@ -20,7 +20,8 @@ SRCNAMES =	main.c 			\
 			sphere.c		\
 			vector.c		\
 			calc_color.c	\
-			inter.c
+			inter.c			\
+			filter.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))

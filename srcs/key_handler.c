@@ -14,6 +14,8 @@
 
 int	key_press(int k, t_env *e)
 {
+	printf("key = %d\n", k);
+	e->filter = 0;
 	if (k == 15)
 		e->l_coef = 1000000;
 	if (k == 67)
@@ -24,6 +26,8 @@ int	key_press(int k, t_env *e)
 		e->l_coef *= 1.5;
 	if (k == 78 && e->l_coef / 1.5)
 		e->l_coef /= 1.5;
+	if (k >= 12 && k <= 17)
+		e->filter = k;
 	expose_hook(e);
 	return (0);
 }

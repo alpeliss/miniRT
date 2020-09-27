@@ -14,7 +14,10 @@
 
 int		expose_hook(t_env *e)
 {
-	ft_init(e);
+	if (!e->filter)
+		ft_init(e);
+	else
+		filter(e);
 	mlx_put_image_to_window(e->mlx->p, e->mlx->pw, e->mlx->pi, 0, 0);
 	return (0);
 }

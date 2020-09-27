@@ -53,6 +53,7 @@ typedef struct		s_env
 	t_mlx			*mlx;
 	unsigned long	l_coef;
 	int				init;
+	char			filter;
 }					t_env;
 
 void				print_data(t_env e);
@@ -83,5 +84,6 @@ float				sq_norm(t_point p);
 t_point				norm(t_point p);
 double          	calc_color(t_env *e, t_closest c, t_vector v);
 t_closest			inter(t_vector v, t_env *e);
+void				filter(t_env *e);
 
 #endif
