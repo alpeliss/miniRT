@@ -28,7 +28,7 @@ int		get_plane(char *str, t_shapes *obj, int *i)
 {
 	if (!(get_point(&obj->pos, str, i, 'p')))
 		return (0);
-	if (!(get_point(&obj->v_orientation, str, i, 'v')))
+	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);
 	if (!(get_color(&obj->color, str, i)))
 		return (0);
@@ -39,7 +39,7 @@ int		get_square(char *str, t_shapes *obj, int *i)
 {
 	if (!(get_point(&obj->pos, str, i, 'p')))
 		return (0);
-	if (!(get_point(&obj->v_orientation, str, i, 'v')))
+	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);
 	obj->height = ft_atof(str, i);
 	if (obj->height <= 0)
@@ -53,7 +53,7 @@ int		get_cylinder(char *str, t_shapes *obj, int *i)
 {
 	if (!(get_point(&obj->pos, str, i, 'p')))
 		return (0);
-	if (!(get_point(&obj->v_orientation, str, i, 'v')))
+	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);
 	obj->diameter = ft_atof(str, i);
 	obj->height = ft_atof(str, i);

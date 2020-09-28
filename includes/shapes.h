@@ -46,7 +46,7 @@ typedef struct			s_shapes
 {
 	int					id;
 	t_point				pos;
-	t_point				v_orientation;
+	t_point				v_or;
 	t_point				a;
 	t_point				b;
 	t_point				c;

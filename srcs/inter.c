@@ -32,6 +32,22 @@ double		inter_sphere(t_vector v, t_shapes *s)
 	return (t1);
 }
 
+double		inter_plane(t_vector v, t_shapes *s)
+{
+	double	d;
+	double	dist;
+	double	div;
+
+	d = -(s->pos.x * s->v_or.x + s->pos.y * s->v_or.y + s->pos.z * s->v_or.z);
+	div = s->v_or.x * v.dir.x + s->v_or.y * v.dir.y + s->v_or.z * v.dir.z;
+	if (!div)
+		return (-1);
+	dist = -(s->v_or.x * v.origin.x + s->v_or.y * v.origin.y + s->v_or.z * v.origin.z + d) / div;
+	//if (dist > 0)
+	//	write(1,"e",1);
+	return (dist);
+}
+
 t_closest	inter(t_vector v, t_env *e)
 {
 	t_shapes	*s;
@@ -45,6 +61,8 @@ t_closest	inter(t_vector v, t_env *e)
 	{
 		if (s->id == 0)
 			dist = inter_sphere(v, s);
+		if (s->id == 1)
+			dist = inter_plane(v, s);
 		if (dist > 0 && (c.dist == -1 || dist < c.dist))
 		{
 			c.dist = dist;

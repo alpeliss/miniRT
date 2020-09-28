@@ -94,5 +94,6 @@ int			save_bmp(t_env *e)
 		return (0);
 	}
 	close(fd);
+	free_everything(*e);
 	return (1);
 }

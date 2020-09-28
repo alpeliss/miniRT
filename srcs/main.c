@@ -20,7 +20,7 @@ static int	check_arg(int ac, char **av)
 	fd = 0;
 	if (ft_strlen(av[1]) < 3 || ft_strcmp(&av[1][ft_strlen(av[1]) - 3], ".rt"))
 		return (0);
-	if (ac == 3 && ft_strcmp(av[2], "--save"))
+	if (ac == 3 && ft_strcmp(av[2], "-save"))
 		return (0);
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		return (0);
@@ -61,8 +61,8 @@ int			main(int ac, char **av)
 	init_env(&e);
 	get_all(fd, &e);
 	ft_init(&e);
-	if (save_bmp(&e))
-		return (1);
+	if (ac == 3)
+		return (save_bmp(&e));
 	mlx_hook(e.mlx->pw, 17, 0, ft_click_exit, &e);
 	mlx_hook(e.mlx->pw, 2, (1L << 0), key_press, &e);
 	mlx_hook(e.mlx->pw, 3, (1L << 1), key_release, &e);

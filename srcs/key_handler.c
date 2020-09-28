@@ -12,9 +12,45 @@
 
 #include "mini_rt.h"
 
-int	key_press(int k, t_env *e)
+void	switch_camera(t_env *e, int	way)
+{
+	t_cameras	*tmp;
+	t_cameras	*tmp2;
+
+	if (!e->c->next)
+		return ;
+	tmp = e->c;
+	tmp2 = e->c;
+	if (way)
+	{
+		e->c = e->c->next;	
+		while (tmp2->next)
+			tmp2 = tmp2->next;
+		tmp->next = NULL;
+		tmp2->next = tmp;
+	}
+	else
+	{
+		while (tmp->next)
+		{
+			tmp2 = tmp;
+			tmp = tmp->next;
+		}
+		tmp->next = e->c;
+		e->c = tmp;
+		tmp2->next = NULL;
+	}
+	
+}
+
+int		key_press(int k, t_env *e)
 {
 	printf("key = %d\n", k);
+	if (k == 53)
+	{
+		free_everything(*e);
+		exit(0);
+	}
 	e->filter = 0;
 	if (k == 15)
 		e->l_coef = 1000000;
@@ -26,13 +62,15 @@ int	key_press(int k, t_env *e)
 		e->l_coef *= 1.5;
 	if (k == 78 && e->l_coef / 1.5)
 		e->l_coef /= 1.5;
-	if (k >= 12 && k <= 17)
+	if (k >= 82 && k <= 92 && k != 90)
 		e->filter = k;
+	if (k == 123 || k == 124)
+		switch_camera(e, k - 123);
 	expose_hook(e);
 	return (0);
 }
 
-int	key_release(int k, t_env *e)
+int		key_release(int k, t_env *e)
 {
 	if (k == 53)
 	{
