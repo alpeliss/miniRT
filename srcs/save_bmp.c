@@ -81,7 +81,7 @@ static int	write_data(int fd, t_env *e)
 	return (1);
 }
 
-int			save_bmp(t_env *e)
+int			save_bmp(t_env *e, int s)
 {
 	int fd;
 
@@ -94,6 +94,7 @@ int			save_bmp(t_env *e)
 		return (0);
 	}
 	close(fd);
-	free_everything(*e);
+	if (!s)
+		free_everything(*e);
 	return (1);
 }

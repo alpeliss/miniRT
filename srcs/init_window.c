@@ -32,9 +32,10 @@ void		init_tab(t_env *e)
 		j = 0;
 		while (j < e->res_x)
 		{
-			v.dir.x = (long)j - e->res_x / 2;
-			v.dir.y = (long)i - e->res_y / 2;
-			v.dir.z = -((float)e->res_x / 2) / tan((e->c->fov * PI) / 360);
+			v.dir.x = (long)j - e->res_x / 2 * e->c->v_orientation.x;
+			v.dir.y = (long)i - e->res_y / 2 * e->c->v_orientation.y;
+			v.dir.z = e->c->v_orientation.z
+					* ((float)e->res_x / 2) / tan((e->c->fov * PI) / 360);
 			v.dir = norm(v.dir);
 			e->mlx->tab[(e->res_y - i - 1) *
 				e->res_x + j] = calc_color(e, inter(v, e), v);

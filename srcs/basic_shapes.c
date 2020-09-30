@@ -32,6 +32,7 @@ int		get_plane(char *str, t_shapes *obj, int *i)
 		return (0);
 	if (!(get_color(&obj->color, str, i)))
 		return (0);
+	obj->v_or = norm(obj->v_or);
 	return (1);
 }
 
@@ -46,6 +47,7 @@ int		get_square(char *str, t_shapes *obj, int *i)
 		return (0);
 	if (!(get_color(&obj->color, str, i)))
 		return (0);
+	obj->v_or = norm(obj->v_or);
 	return (1);
 }
 
@@ -61,18 +63,6 @@ int		get_cylinder(char *str, t_shapes *obj, int *i)
 		return (0);
 	if (!(get_color(&obj->color, str, i)))
 		return (0);
-	return (1);
-}
-
-int		get_triangle(char *str, t_shapes *obj, int *i)
-{
-	if (!(get_point(&obj->a, str, i, 'p')))
-		return (0);
-	if (!(get_point(&obj->b, str, i, 'p')))
-		return (0);
-	if (!(get_point(&obj->c, str, i, 'p')))
-		return (0);
-	if (!(get_color(&obj->color, str, i)))
-		return (0);
+	obj->v_or = norm(obj->v_or);
 	return (1);
 }

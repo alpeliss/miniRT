@@ -60,7 +60,8 @@ void	filter(t_env *e)
 			if (e->filter == 83 || e->filter == 84)
 				e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = psy(old_color);
 			if (e->filter >= 85 && e->filter <= 88)
-				e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] = b_w(old_color, e->filter);
+				e->mlx->tab[(e->res_y - i - 1) * e->res_x + j] =
+													b_w(old_color, e->filter);
 			j++;
 		}
 		i++;

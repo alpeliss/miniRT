@@ -37,6 +37,7 @@ static void	init_env(t_env *e)
 	e->l_coef = 1000000;
 	e->init = 0;
 	e->filter = 0;
+	e->x = 0;
 	e->c = NULL;
 	e->l = NULL;
 	e->s = NULL;
@@ -60,9 +61,10 @@ int			main(int ac, char **av)
 		return (write(1, "Arguments invalides\n", 20));
 	init_env(&e);
 	get_all(fd, &e);
+	print_data(e);
 	ft_init(&e);
 	if (ac == 3)
-		return (save_bmp(&e));
+		return (save_bmp(&e, 0));
 	mlx_hook(e.mlx->pw, 17, 0, ft_click_exit, &e);
 	mlx_hook(e.mlx->pw, 2, (1L << 0), key_press, &e);
 	mlx_hook(e.mlx->pw, 3, (1L << 1), key_release, &e);

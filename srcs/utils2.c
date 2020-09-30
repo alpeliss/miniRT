@@ -53,3 +53,19 @@ int		get_point(t_point *point, char *str, int *i, char id)
 		return (0);
 	return (1);
 }
+
+double	abs_d(double nb)
+{
+	if (nb < 0)
+		return (-nb);
+	return (nb);
+}
+
+double	determinant(t_point a, t_point b, t_point c)
+{
+	double	det;
+
+	det = a.x * b.y * c.z + a.y * b.z * c.x + a.z * b.x * c.y;
+	det -= c.x * b.y * a.z + c.y * b.z * a.x + c.z * b.x * a.y;
+	return (det);
+}

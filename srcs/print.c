@@ -58,9 +58,8 @@ static void		print_shapes(t_env e, char **tab_id)
 	while (tmp)
 	{
 		printf("%s\n", tab_id[tmp->id]);
-		if (tmp->id != 4)
-			print_point(tmp->pos, "Shape_pos");
-		if (tmp->id == 1 || tmp->id == 2 || tmp->id == 3)
+		print_point(tmp->pos, "Shape_pos");
+		if (tmp->id == 1 || tmp->id == 2 || tmp->id == 3 || tmp->id == 4)
 			print_point(tmp->v_or, "V_orientation");
 		if (tmp->id == 4)
 		{

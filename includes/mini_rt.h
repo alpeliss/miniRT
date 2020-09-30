@@ -53,6 +53,7 @@ typedef struct		s_env
 	unsigned long	l_coef;
 	int				init;
 	char			filter;
+	float			x;
 }					t_env;
 
 void				print_data(t_env e);
@@ -84,6 +85,10 @@ t_point				norm(t_point p);
 double				calc_color(t_env *e, t_closest c, t_vector v);
 t_closest			inter(t_vector v, t_env *e);
 void				filter(t_env *e);
-int					save_bmp(t_env *e);
+int					save_bmp(t_env *e, int s);
+double				abs_d(double nb);
+double				inter_triangle(t_vector v, t_shapes *s);
+double				inter_plane(t_vector v, t_shapes *s);
+double				determinant(t_point a, t_point b, t_point c);
 
 #endif

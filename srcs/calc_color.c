@@ -49,6 +49,8 @@ t_point			calc_normal(t_shapes s, t_point pos)
 {
 	if (s.id == 0)
 		return (norm(add_point(pos, s.pos, 0)));
+	if (s.id == 1 || s.id == 2 || s.id == 3)
+		return (s.v_or);
 	return (pos);
 }
 
