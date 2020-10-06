@@ -77,11 +77,6 @@ int					get_lights(char *str, t_env *e);
 int					get_shapes(char *str, t_env *e, int id);
 void				free_everything(t_env e);
 void				ft_init(t_env *e);
-t_point				add_point(t_point pa, t_point pb, int op);
-t_point				mult_point(t_point p, float m, int op);
-float				scal_prod(t_point p, t_point q);
-float				sq_norm(t_point p);
-t_point				norm(t_point p);
 double				calc_color(t_env *e, t_closest c, t_vector v);
 t_closest			inter(t_vector v, t_env *e);
 void				filter(t_env *e);
@@ -90,5 +85,17 @@ double				abs_d(double nb);
 double				inter_triangle(t_vector v, t_shapes *s);
 double				inter_plane(t_vector v, t_shapes *s);
 double				determinant(t_point a, t_point b, t_point c);
+double				inter_cylinder(t_vector v, t_shapes *s);
+
+/*
+** vector
+*/
+
+t_point				add_point(t_point pa, t_point pb, int op);
+t_point				mult_point(t_point p, float m, int op);
+float				scal_prod(t_point p, t_point q);
+float				sq_norm(t_point p);
+t_point				norm(t_point p);
+t_point				vec_cross(t_point v1, t_point v2);
 
 #endif

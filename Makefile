@@ -19,11 +19,13 @@ SRCNAMES =	main.c 			\
 			key_handler.c	\
 			sphere.c		\
 			vector.c		\
+			vector2.c		\
 			calc_color.c	\
 			inter.c			\
 			filter.c		\
 			save_bmp.c		\
-			triangle.c
+			triangle.c		\
+			inter_cylinder.c
 
 INC = ./includes/
 SRC = $(addprefix $(SRCDIR), $(SRCNAMES))

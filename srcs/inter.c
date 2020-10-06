@@ -14,9 +14,9 @@
 
 double		inter_plane(t_vector v, t_shapes *s)
 {
-	double	d;
 	double	dist;
 	double	div;
+	double	d;
 
 	d = -(s->pos.x * s->v_or.x + s->pos.y * s->v_or.y + s->pos.z * s->v_or.z);
 	div = s->v_or.x * v.dir.x + s->v_or.y * v.dir.y + s->v_or.z * v.dir.z;
@@ -62,48 +62,6 @@ double		inter_sphere(t_vector v, t_shapes *s)
 	t1 = (-b - sqrt(delta)) / 2;
 	t2 = (-b + sqrt(delta)) / 2;
 	t1 = (t1 > 0) ? t1 : t2;
-	return (t1);
-}
-
-double		inter_cylinder(t_vector v, t_shapes *s)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	t1;
-	double	t2;
-	double	delta;
-	//t_point	s_pos;
-	t_point	D;
-	t_point	V;
-	t_point	X;
-
-	X.x = s->pos.x - v.origin.x;
-	X.y = s->pos.y - v.origin.y;
-	X.z = s->pos.z - v.origin.z;
-	D = v.dir;
-	V = s->v_or;
-	a = sq_norm(D) - scal_prod(D, V) * scal_prod(D, V);
-	b = 2 * (scal_prod(D, X) - scal_prod(D, V) * scal_prod(X, V));
-	c = sq_norm(X) - scal_prod(X, V) * scal_prod(X, V)
-			- s->diameter * s->diameter;
-	/*s_pos.x = s->pos.x - v.origin.x;
-	s_pos.y = s->pos.y - v.origin.y;
-	s_pos.z = s->pos.z - v.origin.z;
-	a = sq_norm(v.dir) - scal_prod(v.dir, s->v_or) * scal_prod(v.dir, s->v_or);
-	b = 2 * (scal_prod(v.dir, s_pos) 
-		- scal_prod(v.dir, s->v_or) * scal_prod(s_pos, s->v_or));
-	c = sq_norm(s_pos) - scal_prod(s_pos, s->v_or) * scal_prod(s_pos, s->v_or)
-		- s->diameter * s->diameter;*/
-   	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return (-1);
-	t1 = (-b - sqrt(delta)) / 2;
-	t2 = (-b + sqrt(delta)) / 2;
-	if (t2 <= 0 || t2 > s->height)
-		return (-1);
-	if (t1 <= 0 || t1 > s->height)
-		return (-1);
 	return (t1);
 }
 
