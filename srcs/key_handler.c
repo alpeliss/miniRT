@@ -40,30 +40,42 @@ void	switch_camera(t_env *e, int way)
 	tmp2->next = NULL;
 }
 
-void	to_much_key(int k, t_env *e)
+void	moove_cam(int k, t_env *e)
+{
+	if (k == 18 || k == 6)
+		e->x += (k == 18) ? 10 : -10;
+	if (k == 19 || k == 7)
+		e->y += (k == 19) ? 10 : -10;
+	if (k == 20 || k == 8)
+		e->z += (k == 20) ? 10 : -10;
+	if (k == 12 || k == 0)
+		e->x += (k == 12) ? 1 : -1;
+	if (k == 13 || k == 1)
+		e->y += (k == 13) ? 1 : -1;
+	if (k == 14 || k == 2)
+		e->z += (k == 14) ? 1 : -1;
+	if (k == 123 || k == 124)
+		switch_camera(e, k - 123);
+	if (k == 15)
+	{
+		e->l_coef = 1000000;
+		e->filter = 0;
+		e->x = 0;
+		e->y = 0;
+		e->z = 0;
+	}
+}
+
+int		key_press(int k, t_env *e)
 {
 	if (k == 53)
 	{
 		free_everything(*e);
 		exit(0);
 	}
-	if (k == 15)
-	{
-		e->l_coef = 1000000;
-		e->filter = 0;
-		e->x = 0;
-	}
-}
-
-int		key_press(int k, t_env *e)
-{
 	printf("key = %d\n", k);
-	to_much_key(k, e);
-	if (k == 2)
-		e->x += 100000;
-	if (k == 0)
-		e->x -= 100000;
-	if (k == 1)
+	moove_cam(k, e);
+	if (k == 3)
 		save_bmp(e, 1);
 	if (k == 67)
 		e->l_coef *= 10;
@@ -75,8 +87,6 @@ int		key_press(int k, t_env *e)
 		e->l_coef /= 1.5;
 	if (k >= 82 && k <= 92 && k != 90)
 		e->filter = k;
-	if (k == 123 || k == 124)
-		switch_camera(e, k - 123);
 	expose_hook(e);
 	return (0);
 }

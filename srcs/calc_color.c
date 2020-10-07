@@ -45,16 +45,25 @@ static int		shadow(t_point pos, t_lights *l, t_env *e, t_point n)
 	return (1);
 }
 
-t_point			calc_normal(t_shapes s, t_point pos, t_vector v)
+t_point			calc_normal(t_closest c, t_point pos, t_vector v)
 {
 	t_point normal;
+	float	m;
 
 	normal = pos;
-	if (s.id == 0)
-		normal = norm(add_point(pos, s.pos, 0));
-	if (s.id == 1 || s.id == 2 || s.id == 4)
-		normal = (scal_prod(v.dir, s.v_or) < 0)
-					? s.v_or : mult_point(s.v_or, -1, 1);
+	if (c.s.id == 0)
+		normal = norm(add_point(pos, c.s.pos, 0));
+	if (c.s.id == 3)
+	{
+		m = scal_prod(add_point(v.origin, c.s.pos, 0), c.s.v_or);
+		m += scal_prod(v.dir, mult_point(c.s.v_or, c.dist, 1));
+		normal = add_point(pos, c.s.pos, 0);
+		normal = add_point(normal, mult_point(c.s.v_or, m, 1), 0);
+		normal = norm(normal);
+	}
+	if (c.s.id == 1 || c.s.id == 2 || c.s.id == 4)
+		normal = (scal_prod(v.dir, c.s.v_or) < 0)
+					? c.s.v_or : mult_point(c.s.v_or, -1, 1);
 	return (normal);
 }
 
@@ -73,7 +82,7 @@ double			calc_color(t_env *e, t_closest c, t_vector v)
 	light.y = 0;
 	light.z = 0;
 	pos = add_point(v.origin, mult_point(v.dir, c.dist, 1), 1);
-	normale = calc_normal(c.s, pos, v);
+	normale = calc_normal(c, pos, v);
 	while (l)
 	{
 		temp = scal_prod(norm(add_point(l->pos, pos, 0)), normale) * e->l_coef *

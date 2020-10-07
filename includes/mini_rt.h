@@ -40,6 +40,20 @@ typedef struct		s_closest
 	double			dist;
 }					t_closest;
 
+
+typedef struct		s_cylindervar
+{
+	double			a;
+	double 			b;
+	double			c;
+	double			t1;
+	double			t2;
+	double			det;
+	t_point			sub;
+	t_point 	    cross;
+	t_point     	cross2;
+}					t_cylindervar;
+
 typedef struct		s_env
 {
 	long			res_x;
@@ -54,6 +68,8 @@ typedef struct		s_env
 	int				init;
 	char			filter;
 	float			x;
+	float			y;
+	float			z;
 }					t_env;
 
 void				print_data(t_env e);

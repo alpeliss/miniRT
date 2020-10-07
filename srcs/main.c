@@ -37,10 +37,12 @@ static void	init_env(t_env *e)
 	e->l_coef = 1000000;
 	e->init = 0;
 	e->filter = 0;
-	e->x = 0;
 	e->c = NULL;
 	e->l = NULL;
 	e->s = NULL;
+	e->x = 0;
+	e->y = 0;
+	e->z = 0;
 }
 
 int			ft_click_exit(t_env *e)

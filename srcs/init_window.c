@@ -25,7 +25,9 @@ void		init_tab(t_env *e)
 	int			j;
 	t_vector	v;
 
-	v.origin = e->c->pos;
+	v.origin.x = e->c->pos.x + e->x;
+	v.origin.y = e->c->pos.y + e->y;
+	v.origin.z = e->c->pos.z + e->z;
 	i = 0;
 	while (i < e->res_y)
 	{

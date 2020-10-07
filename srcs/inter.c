@@ -6,7 +6,7 @@
 /*   By: alpeliss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:27:00 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/09/24 14:27:02 by alpeliss         ###   ########.fr       */
+/*   Updated: 2020/10/07 19:09:57 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,21 @@ double		inter_sphere(t_vector v, t_shapes *s)
 	return (t1);
 }
 
+double		choose_shape(int id, t_vector v, t_shapes *s)
+{
+	if (id == 0)
+		return (inter_sphere(v, s));
+	if (id == 1)
+		return (inter_plane(v, s));
+	if (id == 2)
+		return (inter_square(v, s));
+	if (id == 3)
+		return (inter_cylinder(v, s));
+	if (id == 4)
+		return (inter_triangle(v, s));
+	return (-1);
+}
+
 t_closest	inter(t_vector v, t_env *e)
 {
 	t_shapes	*s;
@@ -76,16 +91,7 @@ t_closest	inter(t_vector v, t_env *e)
 	dist = 0;
 	while (s)
 	{
-		if (s->id == 0)
-			dist = inter_sphere(v, s);
-		if (s->id == 1)
-			dist = inter_plane(v, s);
-		if (s->id == 2)
-			dist = inter_square(v, s);
-		if (s->id == 3)
-			dist = inter_cylinder(v, s);
-		if (s->id == 4)
-			dist = inter_triangle(v, s);
+		dist = choose_shape(s->id, v, s);
 		if (dist > 0 && (c.dist == -1 || dist < c.dist))
 		{
 			c.dist = dist;
