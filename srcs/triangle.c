@@ -28,7 +28,7 @@ static void		calc_v_triangle(t_shapes *s)
 	v_or.y = vect_ab.z * vect_bc.x - vect_ab.x * vect_bc.z;
 	v_or.z = vect_ab.x * vect_bc.y - vect_ab.y * vect_bc.x;
 	s->v_or = norm(v_or);
-	s->pos = s->a;
+	s->c_pos = s->a;
 }
 
 int				get_triangle(char *str, t_shapes *obj, int *i)

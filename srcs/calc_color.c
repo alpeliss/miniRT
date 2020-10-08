@@ -32,15 +32,15 @@ static double	calc_color_a(t_point intens, t_env *e, t_shapes *s)
 	return (color);
 }
 
-static int		shadow(t_point pos, t_lights *l, t_env *e, t_point n)
+static int		shad(t_point pos, t_lights *l, t_env *e, t_point n)
 {
 	t_vector	to_light;
-	t_closest	cl;
+	t_closest	c;
 
 	to_light.origin = add_point(pos, mult_point(n, 1.01, 1), 1);
-	to_light.dir = norm(add_point(l->pos, pos, 0));
-	cl = inter(to_light, e);
-	if (cl.dist != -1 && cl.dist * cl.dist < sq_norm(add_point(l->pos, pos, 0)))
+	to_light.dir = norm(add_point(l->c_pos, pos, 0));
+	c = inter(to_light, e);
+	if (c.dist != -1 && c.dist * c.dist < sq_norm(add_point(l->c_pos, pos, 0)))
 		return (0);
 	return (1);
 }
@@ -52,12 +52,12 @@ t_point			calc_normal(t_closest c, t_point pos, t_vector v)
 
 	normal = pos;
 	if (c.s.id == 0)
-		normal = norm(add_point(pos, c.s.pos, 0));
+		normal = norm(add_point(pos, c.s.c_pos, 0));
 	if (c.s.id == 3)
 	{
-		m = scal_prod(add_point(v.origin, c.s.pos, 0), c.s.v_or);
+		m = scal_prod(add_point(v.origin, c.s.c_pos, 0), c.s.v_or);
 		m += scal_prod(v.dir, mult_point(c.s.v_or, c.dist, 1));
-		normal = add_point(pos, c.s.pos, 0);
+		normal = add_point(pos, c.s.c_pos, 0);
 		normal = add_point(normal, mult_point(c.s.v_or, m, 1), 0);
 		normal = norm(normal);
 	}
@@ -78,15 +78,14 @@ double			calc_color(t_env *e, t_closest c, t_vector v)
 	if (c.dist == -1)
 		return (0);
 	l = e->l;
-	light.x = 0;
-	light.y = 0;
-	light.z = 0;
+	light = (t_point){0, 0, 0};
 	pos = add_point(v.origin, mult_point(v.dir, c.dist, 1), 1);
 	normale = calc_normal(c, pos, v);
 	while (l)
 	{
-		temp = scal_prod(norm(add_point(l->pos, pos, 0)), normale) * e->l_coef *
-	l->ratio * shadow(pos, l, e, normale) / sq_norm(add_point(l->pos, pos, 0));
+		temp = scal_prod(norm(add_point(l->c_pos, pos, 0)), normale)
+			* e->l_coef * l->ratio * shad(pos, l, e, normale)
+			/ sq_norm(add_point(l->c_pos, pos, 0));
 		temp = (temp < 0) ? 0 : temp;
 		light.x += temp * l->color.x;
 		light.y += temp * l->color.y;

@@ -39,7 +39,7 @@ int					get_lights(char *str, t_env *e)
 	if (!(light = (t_lights *)malloc(sizeof(t_lights))))
 		return (0);
 	i = 1;
-	if (!(get_point(&light->pos, str, &i, 'p')))
+	if (!(get_point(&light->m_pos, str, &i, 'p')))
 		return (int_free(light, 0));
 	light->ratio = ft_atof(str, &i);
 	if (light->ratio < 0 || light->ratio > 1)

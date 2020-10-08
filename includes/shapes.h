@@ -36,7 +36,8 @@ typedef struct			s_cameras
 
 typedef struct			s_lights
 {
-	t_point				pos;
+	t_point				m_pos;
+	t_point				c_pos;
 	float				ratio;
 	t_point				color;
 	struct s_lights		*next;
@@ -45,7 +46,8 @@ typedef struct			s_lights
 typedef struct			s_shapes
 {
 	int					id;
-	t_point				pos;
+	t_point				m_pos;
+	t_point				c_pos;
 	t_point				v_or;
 	t_point				a;
 	t_point				b;

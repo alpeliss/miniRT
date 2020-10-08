@@ -6,7 +6,7 @@
 /*   By: tzerates <tzerates@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:03:50 by alpeliss          #+#    #+#             */
-/*   Updated: 2020/03/06 00:32:02 by tzerates         ###   ########.fr       */
+/*   Updated: 2020/10/08 18:40:08 by alpeliss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,17 @@ typedef struct		s_closest
 	double			dist;
 }					t_closest;
 
-
 typedef struct		s_cylindervar
 {
 	double			a;
-	double 			b;
+	double			b;
 	double			c;
 	double			t1;
 	double			t2;
 	double			det;
 	t_point			sub;
-	t_point 	    cross;
-	t_point     	cross2;
+	t_point			cross;
+	t_point			cross2;
 }					t_cylindervar;
 
 typedef struct		s_env
@@ -102,6 +101,7 @@ double				inter_triangle(t_vector v, t_shapes *s);
 double				inter_plane(t_vector v, t_shapes *s);
 double				determinant(t_point a, t_point b, t_point c);
 double				inter_cylinder(t_vector v, t_shapes *s);
+void				word_to_cam(t_env *e, t_cameras *c);
 
 /*
 ** vector

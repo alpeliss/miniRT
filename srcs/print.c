@@ -25,7 +25,7 @@ static void		print_cameras(t_env e)
 	tmp = e.c;
 	while (tmp)
 	{
-		print_point(tmp->pos, "Cam_pos");
+		print_point(tmp->pos, "Cam_m_pos");
 		print_point(tmp->v_orientation, "Cam_vect");
 		printf("Cam_fav = %d\n", tmp->fov);
 		tmp = tmp->next;
@@ -41,7 +41,7 @@ static void		print_lights(t_env e)
 	tmp = e.l;
 	while (tmp)
 	{
-		print_point(tmp->pos, "Light_pos");
+		print_point(tmp->m_pos, "Light_m_pos");
 		printf("Light_ratio = %f\n", tmp->ratio);
 		print_point(tmp->color, "Light_color");
 		tmp = tmp->next;
@@ -58,7 +58,7 @@ static void		print_shapes(t_env e, char **tab_id)
 	while (tmp)
 	{
 		printf("%s\n", tab_id[tmp->id]);
-		print_point(tmp->pos, "Shape_pos");
+		print_point(tmp->m_pos, "Shape_m_pos");
 		if (tmp->id == 1 || tmp->id == 2 || tmp->id == 3 || tmp->id == 4)
 			print_point(tmp->v_or, "V_orientation");
 		if (tmp->id == 4)

@@ -14,7 +14,7 @@
 
 int		get_sphere(char *str, t_shapes *obj, int *i)
 {
-	if (!(get_point(&obj->pos, str, i, 'p')))
+	if (!(get_point(&obj->m_pos, str, i, 'p')))
 		return (0);
 	obj->diameter = ft_atof(str, i);
 	if (obj->diameter <= 0)
@@ -26,7 +26,7 @@ int		get_sphere(char *str, t_shapes *obj, int *i)
 
 int		get_plane(char *str, t_shapes *obj, int *i)
 {
-	if (!(get_point(&obj->pos, str, i, 'p')))
+	if (!(get_point(&obj->m_pos, str, i, 'p')))
 		return (0);
 	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);
@@ -38,7 +38,7 @@ int		get_plane(char *str, t_shapes *obj, int *i)
 
 int		get_square(char *str, t_shapes *obj, int *i)
 {
-	if (!(get_point(&obj->pos, str, i, 'p')))
+	if (!(get_point(&obj->m_pos, str, i, 'p')))
 		return (0);
 	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);
@@ -53,7 +53,7 @@ int		get_square(char *str, t_shapes *obj, int *i)
 
 int		get_cylinder(char *str, t_shapes *obj, int *i)
 {
-	if (!(get_point(&obj->pos, str, i, 'p')))
+	if (!(get_point(&obj->m_pos, str, i, 'p')))
 		return (0);
 	if (!(get_point(&obj->v_or, str, i, 'v')))
 		return (0);

@@ -28,7 +28,7 @@ static	double	inter2(t_vector v, double t1, double t2, t_shapes *s)
 		return (-1);
 	inter.origin = add_point(v.origin, mult_point(v.dir, t, 1), 1);
 	inter.dir = mult_point(s->v_or, -1, 1);
-	plan.pos = s->pos;
+	plan.c_pos = s->c_pos;
 	plan.v_or = s->v_or;
 	dist_to_base = inter_plane(inter, &plan);
 	if (dist_to_base > s->height || dist_to_base < 0)
@@ -41,7 +41,7 @@ double			inter_cylinder(t_vector v, t_shapes *s)
 	t_cylindervar cv;
 
 	cv.cross = vec_cross(v.dir, s->v_or);
-	cv.sub = add_point(v.origin, s->pos, 0);
+	cv.sub = add_point(v.origin, s->c_pos, 0);
 	cv.cross2 = vec_cross(cv.sub, s->v_or);
 	cv.a = scal_prod(cv.cross, cv.cross);
 	cv.b = 2 * scal_prod(cv.cross, cv.cross2);
