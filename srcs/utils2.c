@@ -21,15 +21,15 @@ int		int_free(void *obj, int ret_val)
 int		get_color(t_point *color, char *str, int *i)
 {
 	color->x = ft_atoi(str, i);
-	if (color->x > 255 || str[*i] != ',')
+	if (color->x > 255 || color->x < 0 || str[*i] != ',' || *i == -1)
 		return (0);
 	*i += 1;
 	color->y = ft_atoi(str, i);
-	if (color->y > 255 || str[*i] != ',')
+	if (color->y > 255 || color->y < 0 || str[*i] != ',' || *i == -1)
 		return (0);
 	*i += 1;
 	color->z = ft_atoi(str, i);
-	if (color->z > 255)
+	if (color->z > 255 || color->z < 0 || *i == -1)
 		return (0);
 	return (1);
 }
@@ -37,19 +37,19 @@ int		get_color(t_point *color, char *str, int *i)
 int		get_point(t_point *point, char *str, int *i, char id)
 {
 	point->x = ft_atof(str, i);
-	if (str[*i] != ',')
+	if (str[*i] != ',' || *i == -1)
 		return (0);
 	if (id == 'v' && (point->x < -1 || point->x > 1))
 		return (0);
 	*i += 1;
 	point->y = ft_atof(str, i);
-	if (str[*i] != ',')
+	if (str[*i] != ',' || *i == -1)
 		return (0);
 	if (id == 'v' && (point->y < -1 || point->y > 1))
 		return (0);
 	*i += 1;
 	point->z = ft_atof(str, i);
-	if (id == 'v' && (point->z < -1 || point->z > 1))
+	if ((id == 'v' && (point->z < -1 || point->z > 1)) || *i == -1)
 		return (0);
 	return (1);
 }

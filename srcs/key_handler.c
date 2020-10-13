@@ -40,6 +40,22 @@ void	switch_camera(t_env *e, int way)
 	tmp2->next = NULL;
 }
 
+void	rotate_cam(int k, t_env *e)
+{
+	if (k == 23 || k == 11)
+		e->dev.x += (k == 23) ? 1 : -1;
+	if (k == 22 || k == 45)
+		e->dev.y += (k == 22) ? 1 : -1;
+	if (k == 26 || k == 46)
+		e->dev.z += (k == 26) ? 1 : -1;
+	if (k == 17 || k == 5)
+		e->dev.x += (k == 17) ? 0.1 : -0.1;
+	if (k == 16 || k == 4)
+		e->dev.y += (k == 16) ? 0.1 : -0.1;
+	if (k == 32 || k == 38)
+		e->dev.z += (k == 32) ? 0.1 : -0.1;
+}
+
 void	moove_cam(int k, t_env *e)
 {
 	if (k == 18 || k == 6)
@@ -63,6 +79,7 @@ void	moove_cam(int k, t_env *e)
 		e->x = 0;
 		e->y = 0;
 		e->z = 0;
+		e->dev = (t_point){0, 0, 0};
 	}
 }
 
@@ -75,6 +92,7 @@ int		key_press(int k, t_env *e)
 	}
 	printf("key = %d\n", k);
 	moove_cam(k, e);
+	rotate_cam(k, e);
 	if (k == 3)
 		save_bmp(e, 1);
 	if (k == 67)

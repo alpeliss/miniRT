@@ -31,18 +31,44 @@ static int	check_arg(int ac, char **av)
 
 static void	init_env(t_env *e)
 {
-	e->res_x = 0;
-	e->res_y = 0;
-	e->li_ambi = 0;
+	e->res_x = -1;
+	e->res_y = -1;
+	e->li_ambi = -1;
 	e->l_coef = 1000000;
 	e->init = 0;
 	e->filter = 0;
 	e->c = NULL;
 	e->l = NULL;
 	e->s = NULL;
+	e->mlx = NULL;
 	e->x = 0;
 	e->y = 0;
 	e->z = 0;
+	e->dev = (t_point){0, 0, 0};
+}
+
+int			mini_check(t_env *e, int test)
+{
+	if (e->c && test >= 0 && e->res_x > 0)
+		return (1);
+	write(1, "Error\n", 6);
+	if (test == -2)
+		write(1, "Probleme lumiere ambiante\n", 26);
+	else if (test == -3)
+		write(1, "Probleme sphere\n", 16);
+	else if (test == -4)
+		write(1, "Probleme plan\n", 14);
+	else if (test == -5)
+		write(1, "Probleme carre\n", 15);
+	else if (test == -6)
+		write(1, "Probleme cylindre\n", 18);
+	else if (test == -7)
+		write(1, "Probleme triangle\n", 18);
+	else if (test == -8)
+		write(1, "Probleme invalide id\n", 21);
+	else if (test == -1 || e->res_x == -1)
+		write(1, "Probleme de resolution\n", 23);
+	return (0);
 }
 
 int			ft_click_exit(t_env *e)
@@ -56,13 +82,19 @@ int			main(int ac, char **av)
 {
 	int		fd;
 	t_env	e;
+	int		test;
 
 	if (ac <= 1 || ac > 3)
 		return (write(1, "Mauvais nombre d'arguments\n", 27));
 	if (!(fd = check_arg(ac, av)))
 		return (write(1, "Arguments invalides\n", 20));
 	init_env(&e);
-	get_all(fd, &e);
+	test = get_all(fd, &e);
+	if (!(mini_check(&e, test)))
+	{
+		free_everything(e);
+		return (1);
+	}
 	print_data(e);
 	ft_init(&e);
 	if (ac == 3)

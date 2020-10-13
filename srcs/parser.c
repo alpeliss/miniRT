@@ -32,19 +32,26 @@ static int	check_line(char *str, t_env *e)
 		return (get_shapes(str, e, 3));
 	else if (str[0] == 't' && str[1] == 'r')
 		return (get_shapes(str, e, 4));
+	else if (str[0] != 0)
+		return (-8);
 	return (1);
 }
 
 int			get_all(int fd, t_env *e)
 {
 	char	*line;
+	int		test;
 
-	while (get_next_line(fd, &line) > 0)
+	test = 1;
+	while (test >= 0 && get_next_line(fd, &line) > 0)
+	{
+		test = check_line(line, e);
+		free(line);
+	}
+	if (test >= 0)
 	{
 		check_line(line, e);
 		free(line);
 	}
-	check_line(line, e);
-	free(line);
-	return (1);
+	return (test);
 }

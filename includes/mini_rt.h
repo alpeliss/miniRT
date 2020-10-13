@@ -69,19 +69,34 @@ typedef struct		s_env
 	float			x;
 	float			y;
 	float			z;
+	t_point			dev;
 }					t_env;
 
 void				print_data(t_env e);
 int					key_press(int k, t_env *e);
 int					key_release(int k, t_env *e);
 int					expose_hook(t_env *e);
-int					int_free(void *obj, int ret_val);
-int					ft_strlen(char *str);
-int					ft_strcmp(const char *s1, const char *s2);
-int					is_line(char *save);
-int					get_next_line(int fd, char **line);
-int					ft_atoi(char *str, int *i);
-float				ft_atof(char *str, int *i);
+int					get_shapes(char *str, t_env *e, int id);
+void				free_everything(t_env e);
+void				ft_init(t_env *e);
+double				calc_color(t_env *e, t_closest c, t_vector v);
+void				filter(t_env *e);
+int					save_bmp(t_env *e, int s);
+void				word_to_cam(t_env *e, t_cameras *c);
+
+/*
+** inter
+*/
+
+double				inter_triangle(t_vector v, t_shapes *s);
+double				inter_plane(t_vector v, t_shapes *s);
+t_closest			inter(t_vector v, t_env *e);
+double				inter_cylinder(t_vector v, t_shapes *s);
+
+/*
+** parser
+*/
+
 int					get_color(t_point *color, char *str, int *i);
 int					get_point(t_point *point, char *str, int *i, char id);
 int					get_all(int fd, t_env *e);
@@ -89,19 +104,6 @@ int					get_res(char *str, t_env *e);
 int					get_ambi_light(char *str, t_env *e);
 int					get_cam(char *str, t_env *e);
 int					get_lights(char *str, t_env *e);
-int					get_shapes(char *str, t_env *e, int id);
-void				free_everything(t_env e);
-void				ft_init(t_env *e);
-double				calc_color(t_env *e, t_closest c, t_vector v);
-t_closest			inter(t_vector v, t_env *e);
-void				filter(t_env *e);
-int					save_bmp(t_env *e, int s);
-double				abs_d(double nb);
-double				inter_triangle(t_vector v, t_shapes *s);
-double				inter_plane(t_vector v, t_shapes *s);
-double				determinant(t_point a, t_point b, t_point c);
-double				inter_cylinder(t_vector v, t_shapes *s);
-void				word_to_cam(t_env *e, t_cameras *c);
 
 /*
 ** vector
@@ -113,5 +115,19 @@ float				scal_prod(t_point p, t_point q);
 float				sq_norm(t_point p);
 t_point				norm(t_point p);
 t_point				vec_cross(t_point v1, t_point v2);
+
+/*
+** utils
+*/
+
+int					ft_strlen(char *str);
+int					ft_strcmp(const char *s1, const char *s2);
+int					is_line(char *save);
+int					get_next_line(int fd, char **line);
+int					ft_atoi(char *str, int *i);
+float				ft_atof(char *str, int *i);
+double				abs_d(double nb);
+double				determinant(t_point a, t_point b, t_point c);
+int					int_free(void *obj, int ret_val);
 
 #endif

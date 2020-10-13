@@ -38,6 +38,11 @@ int			ft_atoi(char *str, int *i)
 		*i += 1;
 	}
 	tot = 0;
+	if (str[*i] < '0' || str[*i] > '9')
+	{
+		*i = -1;
+		return (-2);
+	}
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
 		tot = tot * 10 + (str[*i] - '0') * m;
@@ -53,6 +58,8 @@ float		ft_atof(char *str, int *i)
 	float	m;
 
 	tot = (float)ft_atoi(str, i);
+	if (*i == -1)
+		return (tot);
 	if (str[*i] != '.')
 		return (tot);
 	*i += 1;

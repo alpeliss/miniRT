@@ -32,6 +32,14 @@ static t_point	translate(t_point old, t_cameras *c, t_env *e)
 	return (new);
 }
 
+static t_point	calc_orientation(t_env *e, t_cameras *c)
+{
+	t_point		n;
+
+	n = norm(add_point(c->v_orientation, e->dev, 1));
+	return (n);
+}
+
 void			word_to_cam(t_env *e, t_cameras *c)
 {
 	t_shapes	*s;
@@ -40,8 +48,8 @@ void			word_to_cam(t_env *e, t_cameras *c)
 	t_point		v;
 	t_point		n;
 
-	n = norm(c->v_orientation);
-	u = (n.y) ? (t_point){1, 0, 1} : (t_point){0, 1, 0};
+	n = calc_orientation(e, c);
+	u = (n.x || !n.y || n.z) ? (t_point){0, 1, 0} : (t_point){1, 0, 1};
 	u = vec_cross(u, c->v_orientation);
 	v = norm(vec_cross(n, u));
 	s = e->s;

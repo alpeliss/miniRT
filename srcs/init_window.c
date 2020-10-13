@@ -12,13 +12,6 @@
 
 #include "mini_rt.h"
 
-int			mini_check(t_env *e)
-{
-	if (!e->c)
-		return (0);
-	return (1);
-}
-
 void		init_tab(t_env *e)
 {
 	int			i;
@@ -60,11 +53,6 @@ void		ft_init(t_env *e)
 		m->pi = mlx_new_image(m->p, e->res_x, e->res_y);
 		m->tab = (int*)mlx_get_data_addr(m->pi, &i, &i, &i);
 		e->mlx = m;
-		if (!(mini_check(e)))
-		{
-			free_everything(*e);
-			exit(1);
-		}
 		e->init = 1;
 	}
 	init_tab(e);

@@ -41,15 +41,15 @@ int					get_shapes(char *str, t_env *e, int id)
 	i = 2;
 	obj->id = id;
 	if (id == 0 && !get_sphere(str, obj, &i))
-		return (int_free(obj, 0));
+		return (int_free(obj, -3));
 	if (id == 1 && !get_plane(str, obj, &i))
-		return (int_free(obj, 0));
+		return (int_free(obj, -4));
 	if (id == 2 && !get_square(str, obj, &i))
-		return (int_free(obj, 0));
+		return (int_free(obj, -5));
 	if (id == 3 && !get_cylinder(str, obj, &i))
-		return (int_free(obj, 0));
+		return (int_free(obj, -6));
 	if (id == 4 && !get_triangle(str, obj, &i))
-		return (int_free(obj, 0));
+		return (int_free(obj, -7));
 	obj->next = NULL;
 	obj->color = mult_point(obj->color, 255, 0);
 	add_back(&e->s, obj);
