@@ -53,6 +53,13 @@ typedef struct		s_cylindervar
 	t_point			cross2;
 }					t_cylindervar;
 
+typedef struct		s_rot_vector
+{
+	t_point			u;
+	t_point			v;
+	t_point			n;
+}					t_rot_vector;
+
 typedef struct		s_env
 {
 	long			res_x;
@@ -89,6 +96,7 @@ void				word_to_cam(t_env *e, t_cameras *c);
 */
 
 double				inter_triangle(t_vector v, t_shapes *s);
+double				inter_circle(t_vector v, t_shapes *s);
 double				inter_plane(t_vector v, t_shapes *s);
 t_closest			inter(t_vector v, t_env *e);
 double				inter_cylinder(t_vector v, t_shapes *s);

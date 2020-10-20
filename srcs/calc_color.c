@@ -61,7 +61,7 @@ t_point			calc_normal(t_closest c, t_point pos, t_vector v)
 		normal = add_point(normal, mult_point(c.s.v_or, m, 1), 0);
 		normal = norm(normal);
 	}
-	if (c.s.id == 1 || c.s.id == 2 || c.s.id == 4)
+	if (c.s.id == 1 || c.s.id == 2 || c.s.id == 4 || c.s.id == 5)
 		normal = (scal_prod(v.dir, c.s.v_or) < 0)
 					? c.s.v_or : mult_point(c.s.v_or, -1, 1);
 	return (normal);

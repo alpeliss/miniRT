@@ -52,6 +52,9 @@ typedef struct			s_shapes
 	t_point				a;
 	t_point				b;
 	t_point				c;
+	t_point				c_a;
+	t_point				c_b;
+	t_point				c_c;
 	float				diameter;
 	float				height;
 	t_point				color;

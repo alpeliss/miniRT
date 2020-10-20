@@ -59,6 +59,7 @@ static void		print_shapes(t_env e, char **tab_id)
 	{
 		printf("%s\n", tab_id[tmp->id]);
 		print_point(tmp->m_pos, "Shape_m_pos");
+		print_point(tmp->c_pos, "Shape_c_pos");
 		if (tmp->id == 1 || tmp->id == 2 || tmp->id == 3 || tmp->id == 4)
 			print_point(tmp->v_or, "V_orientation");
 		if (tmp->id == 4)
@@ -79,13 +80,14 @@ static void		print_shapes(t_env e, char **tab_id)
 
 void			print_data(t_env e)
 {
-	char		*tab_id[5];
+	char		*tab_id[6];
 
 	tab_id[0] = "sphere";
 	tab_id[1] = "plane";
 	tab_id[2] = "square";
 	tab_id[3] = "cylinder";
 	tab_id[4] = "triangle";
+	tab_id[5] = "cercle";
 	printf("res_x = %lu et res_y =  %lu\n\n", e.res_x, e.res_y);
 	printf("li_ambi = %f li_r = %f li_g = %f li_b = %f\n\n\n", e.li_ambi,
 			e.li_color.x, e.li_color.y, e.li_color.z);

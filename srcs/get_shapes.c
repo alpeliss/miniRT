@@ -50,7 +50,6 @@ int					get_shapes(char *str, t_env *e, int id)
 		return (int_free(obj, -6));
 	if (id == 4 && !get_triangle(str, obj, &i))
 		return (int_free(obj, -7));
-	obj->next = NULL;
 	obj->color = mult_point(obj->color, 255, 0);
 	add_back(&e->s, obj);
 	return (1);

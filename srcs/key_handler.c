@@ -93,7 +93,7 @@ int		key_press(int k, t_env *e)
 	printf("key = %d\n", k);
 	moove_cam(k, e);
 	rotate_cam(k, e);
-	if (k == 3)
+	if (k == 37)
 		save_bmp(e, 1);
 	if (k == 67)
 		e->l_coef *= 10;

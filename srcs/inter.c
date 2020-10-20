@@ -78,6 +78,8 @@ double		choose_shape(int id, t_vector v, t_shapes *s)
 		return (inter_cylinder(v, s));
 	if (id == 4)
 		return (inter_triangle(v, s));
+	if (id == 5)
+		return (inter_circle(v, s));
 	return (-1);
 }
 

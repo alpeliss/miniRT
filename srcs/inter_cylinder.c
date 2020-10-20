@@ -36,6 +36,19 @@ static	double	inter2(t_vector v, double t1, double t2, t_shapes *s)
 	return (t);
 }
 
+double			inter_circle(t_vector v, t_shapes *s)
+{
+	double	dist;
+	t_point	pos;
+
+	if ((dist = inter_plane(v, s)) < 0)
+		return (0);
+	pos = add_point(v.origin, mult_point(v.dir, dist, 1), 1);
+	if (sq_norm(add_point(pos, s->c_pos, 0)) > pow(s->diameter / 2, 2))
+		return (0);
+	return (dist);
+}
+
 double			inter_cylinder(t_vector v, t_shapes *s)
 {
 	t_cylindervar cv;
